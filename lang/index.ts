@@ -16,6 +16,8 @@ import * as typescript from './typescript';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const empty = { init: async () => {} };
+const ps =
+  hasFile('spago.dhall') || hasFile('psc-package.json') ? purescript : empty;
 const ts = hasFile('package.json') ? typescript : empty;
 const rs = hasFile('Cargo.toml') ? rust : empty;
 
@@ -29,7 +31,7 @@ export {
   haskell,
   org,
   go,
-  purescript,
+  ps,
   nix,
   rs,
   shell,
