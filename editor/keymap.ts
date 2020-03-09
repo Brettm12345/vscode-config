@@ -41,6 +41,7 @@ export const init = keymaps([
     },
     ['j', 'cursorDown'],
     ['k', 'cursorUp'],
+    ['p', 'magit.pushing'],
     ['x', 'magit.discard-at-point'],
     ['tab', 'magit.toggle-fold']
   ],
