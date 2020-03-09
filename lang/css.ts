@@ -1,6 +1,6 @@
-import { configSet, usePackages } from '../lib';
-import * as T from 'fp-ts/lib/Task';
 import { pipe } from 'fp-ts/lib/pipeable';
+
+import { usePackages, andThenSet } from '../lib';
 
 const fmt = {
   'editor.defaultFormatter': 'esbenp.prettier-vscode'
@@ -59,10 +59,8 @@ export const init = pipe(
       }
     ]
   ),
-  T.chain(() =>
-    configSet({
-      '[postcss]': fmt,
-      '[scss]': fmt
-    })
-  )
+  andThenSet({
+    '[postcss]': fmt,
+    '[scss]': fmt
+  })
 );

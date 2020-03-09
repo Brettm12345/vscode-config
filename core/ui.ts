@@ -1,4 +1,4 @@
-import { configsSet } from '../lib/usePackage';
+import { configsSet } from '../lib';
 
 const font = 'monospace';
 export const init = configsSet({

@@ -1,20 +1,20 @@
 import { pipe } from 'fp-ts/lib/pipeable';
-import * as T from 'fp-ts/lib/Task';
 
-import { configSet, usePackages } from '../lib';
+import { usePackages, useMorePackages, andThenSet } from '../lib';
 
-const inlineTypes = [
-  'sokra.ts-inline-types',
-  {
-    scope: 'inline-types',
-    config: {
-      'features.functionParameterType': true,
-      'features.parameterName': false,
-      'darkThemeDecorationStyle.color': '#828bb8',
-      'darkThemeDecorationStyle.opacity': 1
-    }
-  }
-];
+// Inline types unfortunately slows down vscode significantly
+// const inlineTypes = [
+//   'sokra.ts-inline-types',
+//   {
+//     scope: 'inline-types',
+//     config: {
+//       'features.functionParameterType': true,
+//       'features.parameterName': false,
+//       'darkThemeDecorationStyle.color': '#828bb8',
+//       'darkThemeDecorationStyle.opacity': 1
+//     }
+//   }
+// ];
 
 export const init = pipe(
   usePackages(
@@ -32,45 +32,9 @@ export const init = pipe(
     'jpoissonnier.vscode-styled-components',
     'silvenon.mdx',
     'ms-vscode.typescript-javascript-grammar',
-    'develax.daddy-jest',
-    'tlent.jest-snapshot-language-support',
-    'rtbenfield.vscode-jest-test-adapter',
     'ms-vscode.vscode-typescript-next',
     'visualstudioexptteam.vscodeintellicode',
     'firefox-devtools.vscode-firefox-debug',
-    'asvetliakov.snapshot-tools',
-    [
-      'dbaeumer.vscode-eslint',
-      {
-        scope: 'eslint',
-        config: {
-          alwaysShowStatus: false,
-          packageManager: 'yarn',
-          'linkTask.enable': true,
-          run: 'onSave'
-        }
-      }
-    ],
-    [
-      'orta.vscode-jest',
-      {
-        config: {
-          autoEnable: false
-        }
-      }
-    ],
-    [
-      'wix.vscode-import-cost',
-      {
-        scope: 'importCost',
-        config: {
-          showCalculatingDecoration: true,
-          largePackageColor: '#ff5370',
-          mediumPackageColor: '#FF966C',
-          smallPackageColor: '#c3e88d'
-        }
-      }
-    ],
     [
       'mike-co.import-sorter',
       {
@@ -89,23 +53,61 @@ export const init = pipe(
       }
     ]
   ),
-  T.chain(() =>
-    configSet('[typescript]', {
-      'editor.defaultFormatter': 'esbenp.prettier-vscode'
-    })
+  // Feature: Linting
+  useMorePackages(
+    [
+      'dbaeumer.vscode-eslint',
+      {
+        scope: 'eslint',
+        config: {
+          alwaysShowStatus: false,
+          packageManager: 'yarn',
+          'linkTask.enable': true,
+          run: 'onSave'
+        }
+      }
+    ],
+    [
+      'wix.vscode-import-cost',
+      {
+        scope: 'importCost',
+        config: {
+          showCalculatingDecoration: true,
+          largePackageColor: '#ff5370',
+          mediumPackageColor: '#FF966C',
+          smallPackageColor: '#c3e88d'
+        }
+      }
+    ]
   ),
-  T.chain(() =>
-    configSet('typescript', {
-      'format.enable': false,
-      'format.insertSpaceAfterFunctionKeywordForAnonymousFunctions': false,
-      'format.insertSpaceAfterTypeAssertion': true,
-      'format.insertSpaceBeforeAndAfterBinaryOperators': false,
-      'preferences.quoteStyle': 'single',
-      'suggest.completeFunctionCalls': true,
-      'surveys.enabled': false,
-      'tsserver.log': 'normal',
-      'tsserver.trace': 'messages',
-      'updateImportsOnFileMove.enabled': 'always'
-    })
-  )
+  // Feature: Testing
+  useMorePackages(
+    [
+      'orta.vscode-jest',
+      {
+        config: {
+          autoEnable: false
+        }
+      }
+    ],
+    'develax.daddy-jest',
+    'tlent.jest-snapshot-language-support',
+    'rtbenfield.vscode-jest-test-adapter',
+    'asvetliakov.snapshot-tools'
+  ),
+  andThenSet('[typescript]', {
+    'editor.defaultFormatter': 'esbenp.prettier-vscode'
+  }),
+  andThenSet('typescript', {
+    'format.enable': false,
+    'format.insertSpaceAfterFunctionKeywordForAnonymousFunctions': false,
+    'format.insertSpaceAfterTypeAssertion': true,
+    'format.insertSpaceBeforeAndAfterBinaryOperators': false,
+    'preferences.quoteStyle': 'single',
+    'suggest.completeFunctionCalls': true,
+    'surveys.enabled': false,
+    'tsserver.log': 'normal',
+    'tsserver.trace': 'messages',
+    'updateImportsOnFileMove.enabled': 'always'
+  })
 );

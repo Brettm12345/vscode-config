@@ -1,4 +1,4 @@
-import { usePackage } from '../lib/usePackage';
+import { usePackage } from '../lib';
 
 export const init = usePackage('michaelgriscom.leadermode', {
   config: {

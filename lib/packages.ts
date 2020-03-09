@@ -1,10 +1,11 @@
-import * as UP from 'vscode-use-package';
-import { IO } from 'fp-ts/lib/IO';
 import * as A from 'fp-ts/lib/Array';
-import { ExtensionContext } from 'vscode';
+import * as T from 'fp-ts/lib/Task';
 import * as R from 'fp-ts/lib/Record';
-import { Task } from 'fp-ts/lib/Task';
 import { pipe } from 'fp-ts/lib/pipeable';
+import { IO } from 'fp-ts/lib/IO';
+import { Task } from 'fp-ts/lib/Task';
+import * as UP from 'vscode-use-package';
+import { ExtensionContext } from 'vscode';
 
 import { flattenTasks } from './fp';
 
@@ -26,6 +27,8 @@ export const usePackages = (...xs: Package[]): Task<void> =>
     A.map(x => (Array.isArray(x) ? usePackage(...x) : usePackage(x))),
     flattenTasks
   );
+export const useMorePackages = (...xs: Package[]) =>
+  T.chain(() => usePackages(...xs));
 
 export const configsSet = (config: Record<string, Dictionary>): Task<void> =>
   pipe(
@@ -38,3 +41,6 @@ export const configSet = (
   scope: string | Dictionary,
   options?: Dictionary
 ): Task<void> => () => UP.configSet(scope, options);
+
+export const andThenSet = (scope: string | Dictionary, options?: Dictionary) =>
+  T.chain(() => configSet(scope, options));
