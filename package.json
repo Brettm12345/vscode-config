@@ -21,7 +21,12 @@
     "build": "tsc"
   },
   "dependencies": {
+    "@types/fs-extra": "^8.1.0",
+    "@types/node": "^13.9.0",
     "fp-ts": "^2.5.3",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^8.1.0",
+    "path": "^0.12.7",
     "typescript": "^3.8.3",
     "vscode": "^1.1.36",
     "vscode-use-package": "^0.1.3"

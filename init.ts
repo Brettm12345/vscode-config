@@ -34,7 +34,7 @@ export const init = (ctx: ExtensionContext) =>
         A.map(
           flow(
             R.toArray,
-            A.map(([_, a]) => a.init)
+            A.map(a => a[1].init)
           )
         ),
         A.flatten
