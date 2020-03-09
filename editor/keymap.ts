@@ -37,6 +37,15 @@ export const init = keymaps([
   ],
   [
     {
+      when: 'editorTextFocus && editorLangId == magit'
+    },
+    ['j', 'cursorDown'],
+    ['k', 'cursorUp'],
+    ['x', 'magit.discard-at-point'],
+    ['tab', 'magit.toggle-fold']
+  ],
+  [
+    {
       when: 'editorTextFocus && foldingEnabled',
       scope: 'editor'
     },
