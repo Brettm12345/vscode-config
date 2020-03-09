@@ -60,5 +60,15 @@ export const init = keymaps([
     ['c d', 'explorer.newFolder'],
     ['r', 'renameFile'],
     ['d', 'deleteFile']
+  ],
+  [
+    {
+      scope: 'projectManager',
+      modifier: 'hyper'
+    },
+    ['p', 'listProjects'],
+    ['f', 'addToFavorites'],
+    ['i', 'refreshProjects'],
+    ['a', 'addToWorkspace']
   ]
 ]);
