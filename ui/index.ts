@@ -1,4 +1,5 @@
 import * as bracketPairColorizer from './bracket-pair-colorizer';
+import * as errorLens from './error-lens';
 import * as core from './core';
 import * as iconTheme from './icon-theme';
 import * as colorTheme from './color-theme';
@@ -9,6 +10,7 @@ import * as zentabs from './zentabs';
 export {
   bracketPairColorizer,
   core,
+  errorLens,
   iconTheme,
   colorTheme,
   prettySymbols,
