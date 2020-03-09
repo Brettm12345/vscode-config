@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "outDir": "dist",
+    "declaration": true,
+    "sourceMap": true,
+    "pretty": true,
+    "skipLibCheck": true,
+    "rootDir": ".",
+    "strict": true,
+    "baseUrl": "."
+  },
+
+  "include": [
+    "*.ts",
+    "core/usePackage.ts",
+    "checkers/spell.ts",
+    "editor/keymap.ts",
+    "editor/leadermode.ts",
+    "ui/pretty-symbols.ts",
+    "editor/vim.ts",
+    "lang/typescript.ts",
+    "lang/fsharp.ts",
+    "lang/css.ts",
+    "lang/haskell.ts",
+    "lang/purescript.ts",
+    "lang/rust.ts"
+  ],
+  "exclude": ["node_modules"]
+}
