@@ -1,7 +1,7 @@
-import { usePackage } from "../lib";
+import { usePackage } from '../lib';
 
-export const init = usePackage("ojkwon.vscode-activedocumentindicator", {
-  scope: "activeDocumentIndicator",
+export const init = usePackage('ojkwon.vscode-activedocumentindicator', {
+  scope: 'activeDocumentIndicator',
   config: {
     opacity: 85
   }

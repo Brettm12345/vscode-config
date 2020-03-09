@@ -1,7 +1,7 @@
-import { usePackages } from "../lib";
+import { usePackages } from '../lib';
 
 export const init = usePackages(
-  "kamikillerto.vscode-colorize",
-  "royaction.color-manager",
-  "bierner.color-info"
+  'kamikillerto.vscode-colorize',
+  'royaction.color-manager',
+  'bierner.color-info'
 );

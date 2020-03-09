@@ -1,29 +1,29 @@
-import { usePackages } from "../lib";
+import { usePackages } from '../lib';
 
 export const init = usePackages(
-  "serayuzgur.crates",
-  "swellaby.vscode-rust-test-adapter",
-  "bodil.prettier-toml",
-  "belfz.search-crates-io",
+  'serayuzgur.crates',
+  'swellaby.vscode-rust-test-adapter',
+  'bodil.prettier-toml',
+  'belfz.search-crates-io',
   [
-    "rust-lang.rust",
+    'rust-lang.rust',
     {
       config: {
         cfg_test: false,
         all_features: false,
-        clippy_preference: "on",
+        clippy_preference: 'on',
         unstable_features: true
       }
     }
   ],
   [
-    "matklad.rust-analyzer",
+    'matklad.rust-analyzer',
     {
       config: {
         displayInlineHints: false,
         highlightingOn: false,
         featureFlags: {
-          "completion.insertion.add-call-parenthesis": true
+          'completion.insertion.add-call-parenthesis': true
         }
       }
     }

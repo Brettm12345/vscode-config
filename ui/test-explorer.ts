@@ -1,28 +1,28 @@
-import { usePackages } from "../lib";
+import { usePackages } from '../lib';
 
 export const init = usePackages(
   [
-    "hbenl.vscode-test-explorer",
+    'hbenl.vscode-test-explorer',
     {
-      scope: "testExplorer",
+      scope: 'testExplorer',
       config: {
         mergeSuites: true,
         addToEditorContextMenu: true,
         showExpandButton: 0,
         showCollapseButton: false,
-        sort: "byLocation"
+        sort: 'byLocation'
       },
       keymap: [
         {
-          key: "ctrl+c ctrl+l",
-          command: "test-explorer.show-log"
+          key: 'ctrl+c ctrl+l',
+          command: 'test-explorer.show-log'
         },
         {
-          key: "ctrl+c t",
-          command: "test-explorer.run-all"
+          key: 'ctrl+c t',
+          command: 'test-explorer.run-all'
         }
       ]
     }
   ],
-  "connorshea.vscode-test-explorer-status-bar"
+  'connorshea.vscode-test-explorer-status-bar'
 );

@@ -1,6 +1,6 @@
-import { usePackages } from "../lib";
+import { usePackages } from '../lib';
 
 export const init = usePackages(
-  "ccls-project.ccls",
-  "jeff-hykin.better-c-syntax"
+  'ccls-project.ccls',
+  'jeff-hykin.better-c-syntax'
 );

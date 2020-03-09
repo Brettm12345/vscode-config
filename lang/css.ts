@@ -1,29 +1,29 @@
-import { configSet, usePackages } from "../lib";
-import * as T from "fp-ts/lib/Task";
-import { pipe } from "fp-ts/lib/pipeable";
+import { configSet, usePackages } from '../lib';
+import * as T from 'fp-ts/lib/Task';
+import { pipe } from 'fp-ts/lib/pipeable';
 
 const fmt = {
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  'editor.defaultFormatter': 'esbenp.prettier-vscode'
 };
 export const init = pipe(
   usePackages(
-    "bradlc.vscode-tailwindcss",
-    "mrmlnc.vscode-scss",
-    "color-variable-replace.color-variable-replace",
-    "mrmlnc.vscode-doiuse",
-    "heybourn.headwind",
-    "alan.stylus",
-    "zignd.html-css-class-completion",
-    "bradlc.vscode-tailwindcss",
-    "kisstkondoros.csstriggers",
-    "jpoissonnier.vscode-styled-components",
-    "agauniyal.vscode-caniuse",
-    "cpylua.language-postcss",
-    "kisstkondoros.csstriggers",
-    "mrmlnc.vscode-postcss-sorting",
-    "nkzq.sass-variables-helper",
+    'bradlc.vscode-tailwindcss',
+    'mrmlnc.vscode-scss',
+    'color-variable-replace.color-variable-replace',
+    'mrmlnc.vscode-doiuse',
+    'heybourn.headwind',
+    'alan.stylus',
+    'zignd.html-css-class-completion',
+    'bradlc.vscode-tailwindcss',
+    'kisstkondoros.csstriggers',
+    'jpoissonnier.vscode-styled-components',
+    'agauniyal.vscode-caniuse',
+    'cpylua.language-postcss',
+    'kisstkondoros.csstriggers',
+    'mrmlnc.vscode-postcss-sorting',
+    'nkzq.sass-variables-helper',
     [
-      "thisismanta.stylus-supremacy",
+      'thisismanta.stylus-supremacy',
       {
         config: {
           insertColons: false,
@@ -42,11 +42,11 @@ export const init = pipe(
           insertParenthesisAroundIfCondition: true,
           insertNewLineBeforeElse: false,
           insertLeadingZeroBeforeFraction: true,
-          selectorSeparator: ", ",
-          tabStopChar: "\t",
-          newLineChar: "\n",
+          selectorSeparator: ', ',
+          tabStopChar: '\t',
+          newLineChar: '\n',
           quoteChar: "'",
-          sortProperties: "alphabetical",
+          sortProperties: 'alphabetical',
           alwaysUseImport: true,
           alwaysUseNot: false,
           alwaysUseAtBlock: false,
@@ -61,8 +61,8 @@ export const init = pipe(
   ),
   T.chain(() =>
     configSet({
-      "[postcss]": fmt,
-      "[scss]": fmt
+      '[postcss]': fmt,
+      '[scss]': fmt
     })
   )
 );

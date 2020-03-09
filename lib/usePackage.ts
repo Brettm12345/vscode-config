@@ -1,13 +1,12 @@
-import * as UP from "vscode-use-package";
-import { IO } from "fp-ts/lib/IO";
-import * as A from "fp-ts/lib/Array";
-import { ExtensionContext } from "vscode";
-import * as R from "fp-ts/lib/Record";
-import { Task } from "fp-ts/lib/Task";
-import { pipe } from "fp-ts/lib/pipeable";
+import * as UP from 'vscode-use-package';
+import { IO } from 'fp-ts/lib/IO';
+import * as A from 'fp-ts/lib/Array';
+import { ExtensionContext } from 'vscode';
+import * as R from 'fp-ts/lib/Record';
+import { Task } from 'fp-ts/lib/Task';
+import { pipe } from 'fp-ts/lib/pipeable';
 
-import { flattenTasks } from "./fp";
-import { unsafeCoerce, tupled } from "fp-ts/lib/function";
+import { flattenTasks } from './fp';
 
 type Package = [string, UP.UsePackageOptions] | string;
 

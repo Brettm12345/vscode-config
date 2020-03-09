@@ -1,5 +1,5 @@
-import { reduce } from "fp-ts/lib/Array";
-import { pipe } from "fp-ts/lib/pipeable";
+import { reduce } from 'fp-ts/lib/Array';
+import { pipe } from 'fp-ts/lib/pipeable';
 
 type Replacement = [string | RegExp, string];
 

@@ -1,3 +1,3 @@
-import { usePackage } from "../lib";
+import { usePackage } from '../lib';
 
-export const init = usePackage("awesomektvn.scratchpad");
+export const init = usePackage('awesomektvn.scratchpad');

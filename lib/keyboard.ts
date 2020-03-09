@@ -1,17 +1,17 @@
-import { Endomorphism, flow, tupled } from "fp-ts/lib/function";
-import { replaceAll } from "./strings";
-import * as up from "vscode-use-package";
-import { map } from "fp-ts/lib/Array";
-import { pipe } from "fp-ts/lib/pipeable";
-import { flattenTasks } from "./fp";
-import { Task } from "fp-ts/lib/Task";
+import { Endomorphism, flow, tupled } from 'fp-ts/lib/function';
+import { replaceAll } from './strings';
+import * as up from 'vscode-use-package';
+import { map } from 'fp-ts/lib/Array';
+import { pipe } from 'fp-ts/lib/pipeable';
+import { flattenTasks } from './fp';
+import { Task } from 'fp-ts/lib/Task';
 
-export const meh = "ctrl+shift+alt";
-export const hyper = "ctrl+shift+alt+meta";
+export const meh = 'ctrl+shift+alt';
+export const hyper = 'ctrl+shift+alt+meta';
 
 export const handleKey: Endomorphism<string> = replaceAll(
-  ["hyper", hyper],
-  ["meh", meh]
+  ['hyper', hyper],
+  ['meh', meh]
 );
 
 /**
@@ -19,7 +19,7 @@ export const handleKey: Endomorphism<string> = replaceAll(
  */
 export type Keybinding = [string, string];
 
-interface CommonArgs extends Omit<up.Keybinding, "key" | "command"> {
+interface CommonArgs extends Omit<up.Keybinding, 'key' | 'command'> {
   scope?: string;
   modifier?: string;
 }

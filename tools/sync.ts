@@ -1,3 +1,3 @@
-import { usePackage } from "../lib";
+import { usePackage } from '../lib';
 
-export const init = usePackage("shan.code-settings-sync");
+export const init = usePackage('shan.code-settings-sync');

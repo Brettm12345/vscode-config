@@ -1,6 +1,6 @@
-import { usePackages } from "../lib";
+import { usePackages } from '../lib';
 
 export const init = usePackages(
-  "panaeon.dhall-lang",
-  "panaeon.vscode-dhall-lsp-server"
+  'panaeon.dhall-lang',
+  'panaeon.vscode-dhall-lsp-server'
 );

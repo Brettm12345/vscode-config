@@ -1,8 +1,8 @@
-import { usePackage } from "../lib";
+import { usePackage } from '../lib';
 
-export const init = usePackage("xyz.local-history", {
+export const init = usePackage('xyz.local-history', {
   config: {
     absolute: true,
-    path: "/home/brett/var/vscode/history"
+    path: '/home/brett/var/vscode/history'
   }
 });

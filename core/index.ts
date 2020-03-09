@@ -1,3 +1,3 @@
-import * as ui from "./ui";
+import * as ui from './ui';
 
 export { ui };

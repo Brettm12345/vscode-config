@@ -1,3 +1,3 @@
-import { usePackage } from "../lib";
+import { usePackage } from '../lib';
 
-export const init = usePackage("tyriar.terminal-tabs");
+export const init = usePackage('tyriar.terminal-tabs');

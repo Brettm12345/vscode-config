@@ -1,3 +1,3 @@
-import { usePackage } from "../lib";
+import { usePackage } from '../lib';
 
-export const init = usePackage("mdw.vscode-todo-plus-plus");
+export const init = usePackage('mdw.vscode-todo-plus-plus');

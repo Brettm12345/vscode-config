@@ -1,4 +1,4 @@
-import { usePackage } from "../lib";
+import { usePackage } from '../lib';
 
 // For taking pics of ur code
-export const init = usePackage("adpyke.codesnap");
+export const init = usePackage('adpyke.codesnap');
