@@ -21,8 +21,12 @@ export const usePackage = (
   options: UP.UsePackageOptions = {}
 ): Task<void> => () => UP.usePackage(name, options);
 
-export const usePackages = (...xs: Package[]) =>
-  pipe(xs, A.map(x => Array.isArray(x) ? usePackage(...x) : usePackage(x)), flattenTasks);
+export const usePackages = (...xs: Package[]): Task<void> =>
+  pipe(
+    xs,
+    A.map(x => (Array.isArray(x) ? usePackage(...x) : usePackage(x))),
+    flattenTasks
+  );
 
 export const configsSet = (config: Record<string, Dictionary>): Task<void> =>
   pipe(
