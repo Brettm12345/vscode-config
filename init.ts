@@ -18,11 +18,6 @@ interface Module {
   init: Task<void>;
 }
 
-const loadmodule: (a: Record<string, Module>) => Array<Task<void>> = flow(
-  R.toArray,
-  A.map(([_, a]) => a.init)
-);
-
 const groups: Array<Record<string, Module>> = [
   ui,
   editor,
@@ -34,7 +29,16 @@ const groups: Array<Record<string, Module>> = [
 export const init = (ctx: ExtensionContext) =>
   pipe(
     [pipe(ctx, initUsePackage, T.fromIO), config.init].concat(
-      pipe(groups, A.map(loadmodule), A.flatten)
+      pipe(
+        groups,
+        A.map(
+          flow(
+            R.toArray,
+            A.map(([_, a]) => a.init)
+          )
+        ),
+        A.flatten
+      )
     ),
     flattenTasks
   )();
