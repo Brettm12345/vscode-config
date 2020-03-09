@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { hasFile } from '../lib';
 import * as c from './c';
 import * as css from './css';
@@ -22,15 +23,15 @@ const ts = hasFile('package.json') ? typescript : empty;
 const rs = hasFile('Cargo.toml') ? rust : empty;
 
 export {
-  c,
+  // c,
   css,
   dhall,
   fsharp,
-  docker,
+  // docker,
   markdown,
   haskell,
   org,
-  go,
+  // go,
   ps,
   nix,
   rs,
