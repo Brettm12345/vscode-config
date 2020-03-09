@@ -5,3 +5,4 @@ My vscode configuration. Special thanks to [vscode-use-package](https://github.c
 ## Todo
 
 - [ ] Generate types for installed extensions [see](https://github.com/bcherny/json-schema-to-typescript)
+- [ ] Setup custom keymaps for packages
