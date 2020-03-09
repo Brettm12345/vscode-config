@@ -1,7 +1,6 @@
-import * as T from 'fp-ts/lib/Task';
 import { pipe } from 'fp-ts/lib/pipeable';
 
-import { configSet, usePackages } from '../lib';
+import { configSet, andThenSet, useMorePackages } from '../lib';
 
 const font = 'monospace';
 export const init = pipe(
@@ -31,39 +30,31 @@ export const init = pipe(
     suggestLineHeight: 22,
     suggestSelection: 'first'
   }),
-  T.chain(() =>
-    configSet('terminal.integrated', {
-      cursorStyle: 'line',
-      drawBoldTextInBrightColors: false,
-      experimentalRefreshOnResume: true,
-      fontFamily: font,
-      fontSize: 10
-    })
-  ),
-  T.chain(() =>
-    configSet('window', {
-      'list.horizontalScrolling': true,
-      titleBarStyle: 'custom',
-      'tree.indent': 8,
-      zoomLevel: 3
-    })
-  ),
-  T.chain(() =>
-    configSet('workbench', {
-      'editor.showTabs': true,
-      'list.automaticKeyboardNavigation': true,
-      'list.horizontalScrolling': true,
-      'tree.indent': 8
-    })
-  ),
-  T.chain(() =>
-    usePackages(
-      'usernamehw.errorlens',
-      'kruemelkatze.vscode-dashboard',
-      'fabiospampinato.vscode-statusbar-debugger',
-      'amos402.scope-bar',
-      'natqe.reload',
-      'ibm.output-colorizer'
-    )
+  andThenSet('terminal.integrated', {
+    cursorStyle: 'line',
+    drawBoldTextInBrightColors: false,
+    experimentalRefreshOnResume: true,
+    fontFamily: font,
+    fontSize: 10
+  }),
+  andThenSet('window', {
+    'list.horizontalScrolling': true,
+    titleBarStyle: 'custom',
+    'tree.indent': 8,
+    zoomLevel: 3
+  }),
+  andThenSet('workbench', {
+    'editor.showTabs': true,
+    'list.automaticKeyboardNavigation': true,
+    'list.horizontalScrolling': true,
+    'tree.indent': 8
+  }),
+  useMorePackages(
+    'usernamehw.errorlens',
+    'kruemelkatze.vscode-dashboard',
+    'fabiospampinato.vscode-statusbar-debugger',
+    'amos402.scope-bar',
+    'natqe.reload',
+    'ibm.output-colorizer'
   )
 );
