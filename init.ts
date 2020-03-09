@@ -27,17 +27,16 @@ const groups: Array<Record<string, Module>> = [
 ];
 
 export const init = (ctx: ExtensionContext) =>
-  pipe(
-    [pipe(ctx, initUsePackage, T.fromIO), config.init].concat(
-      pipe(
-        groups,
-        A.chain(
-          flow(
-            R.toArray,
-            A.map(a => a[1].init)
-          )
+  flattenTasks([
+    pipe(ctx, initUsePackage, T.fromIO),
+    config.init,
+    ...pipe(
+      groups,
+      A.chain(
+        flow(
+          R.toArray,
+          A.map(a => a[1].init)
         )
       )
-    ),
-    flattenTasks
-  )();
+    )
+  ])();
