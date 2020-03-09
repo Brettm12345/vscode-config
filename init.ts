@@ -31,13 +31,12 @@ export const init = (ctx: ExtensionContext) =>
     [pipe(ctx, initUsePackage, T.fromIO), config.init].concat(
       pipe(
         groups,
-        A.map(
+        A.chain(
           flow(
             R.toArray,
             A.map(a => a[1].init)
           )
-        ),
-        A.flatten
+        )
       )
     ),
     flattenTasks
