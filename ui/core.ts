@@ -40,17 +40,18 @@ export const init = pipe(
     fontSize: 10
   }),
   andThenSet('window', {
-    titleBarStyle: 'custom',
+    menuBarVisibility: 'compact',
+    titleBarStyle: 'native',
     zoomLevel: 3
   }),
   andThenSet('workbench', {
     'editor.showTabs': true,
     'list.automaticKeyboardNavigation': true,
     'list.horizontalScrolling': true,
+    'sideBar.location': 'right',
     'tree.indent': 8
   }),
   useMorePackages(
-    'usernamehw.errorlens',
     'kruemelkatze.vscode-dashboard',
     'fabiospampinato.vscode-statusbar-debugger',
     'amos402.scope-bar',

@@ -11,14 +11,7 @@ export const init = usePackages(
         showExpandButton: 0,
         showCollapseButton: false,
         sort: 'byLocation'
-      },
-      keymap: [
-        {
-          scope: 'test-explorer'
-        },
-        ['ctrl+c ctrl+l', 'show-log'],
-        ['ctrl+c t', 'run-all']
-      ]
+      }
     }
   ],
   'connorshea.vscode-test-explorer-status-bar'

@@ -50,7 +50,6 @@ export const init = pipe(
     'mrmlnc.vscode-doiuse',
     'heybourn.headwind',
     'alan.stylus',
-    'zignd.html-css-class-completion',
     'bradlc.vscode-tailwindcss',
     'kisstkondoros.csstriggers',
     'jpoissonnier.vscode-styled-components',

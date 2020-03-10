@@ -1,4 +1,4 @@
-import { keymaps } from '../lib/keyboard';
+import { keymaps } from '../lib';
 
 export const init = keymaps([
   [
@@ -18,29 +18,31 @@ export const init = keymaps([
       modifier: 'hyper',
       scope: 'workbench.action'
     },
-    ['j', 'nextEditor'],
-    ['k', 'previousEditor']
+    ['k', 'nextEditor'],
+    ['j', 'previousEditor']
   ],
   [
     { when: 'listFocus && !inputFocus', scope: 'list' },
     ['h', 'collapse'],
-    ['l', 'expand'],
+    ['j', 'focusDown'],
     ['k', 'focusUp'],
-    ['j', 'focusDown']
+    ['l', 'expand']
   ],
   [
     { scope: 'workbench.action', modifier: 'ctrl' },
-    ['k', 'navigateUp'],
-    ['j', 'navigateDown'],
     ['h', 'navigateLeft'],
+    ['j', 'navigateDown'],
+    ['k', 'navigateUp'],
     ['l', 'navigateRight']
   ],
   [
     {
       when: 'editorTextFocus && foldingEnabled',
-      scope: 'editor'
+      scope: 'editor',
+      modifier: 'hyper'
     },
-    ['hyper+/', 'foldAllBlockComments']
+    ['/', 'foldAllBlockComments'],
+    ['space', 'toggleFold']
   ],
   [
     {
@@ -49,7 +51,7 @@ export const init = keymaps([
     },
     ['c f', 'explorer.newFile'],
     ['c d', 'explorer.newFolder'],
-    ['r', 'renameFile'],
-    ['d', 'deleteFile']
+    ['d', 'deleteFile'],
+    ['r', 'renameFile']
   ]
 ]);

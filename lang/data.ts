@@ -12,6 +12,5 @@ export const init = usePackages(
   'dotiful.dotfiles-syntax-highlighting',
   'prisma.vscode-graphql',
   'sidneys1.gitconfig',
-  'davidwang.ini-for-vscode',
-  'redhat.vscode-xml'
+  'davidwang.ini-for-vscode'
 );
