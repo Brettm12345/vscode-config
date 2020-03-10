@@ -2,6 +2,43 @@ import { pipe } from 'fp-ts/lib/pipeable';
 
 import { usePackages, andThenSet } from '../lib';
 
+const stylusSupremacy = [
+  'thisismanta.stylus-supremacy',
+  {
+    scope: 'stylusSupremacy',
+    config: {
+      insertColons: false,
+      insertSemicolons: false,
+      insertBraces: false,
+      insertNewLineAroundImports: true,
+      insertNewLineAroundBlocks: true,
+      insertNewLineAroundProperties: false,
+      insertNewLineAroundOthers: false,
+      preserveNewLinesBetweenPropertyValues: true,
+      insertSpaceBeforeComment: true,
+      insertSpaceAfterComment: true,
+      insertSpaceAfterComma: true,
+      insertSpaceInsideParenthesis: false,
+      insertParenthesisAfterNegation: false,
+      insertParenthesisAroundIfCondition: true,
+      insertNewLineBeforeElse: false,
+      insertLeadingZeroBeforeFraction: true,
+      selectorSeparator: ', ',
+      newLineChar: '\n',
+      quoteChar: "'",
+      sortProperties: 'alphabetical',
+      alwaysUseImport: true,
+      alwaysUseNot: false,
+      alwaysUseAtBlock: false,
+      alwaysUseExtends: true,
+      alwaysUseNoneOverZero: false,
+      alwaysUseZeroWithoutUnit: false,
+      reduceMarginAndPaddingValues: false,
+      ignoreFiles: []
+    }
+  }
+];
+
 const fmt = {
   'editor.defaultFormatter': 'esbenp.prettier-vscode'
 };
@@ -21,43 +58,7 @@ export const init = pipe(
     'cpylua.language-postcss',
     'kisstkondoros.csstriggers',
     'mrmlnc.vscode-postcss-sorting',
-    'nkzq.sass-variables-helper',
-    [
-      'thisismanta.stylus-supremacy',
-      {
-        config: {
-          insertColons: false,
-          insertSemicolons: false,
-          insertBraces: false,
-          insertNewLineAroundImports: true,
-          insertNewLineAroundBlocks: true,
-          insertNewLineAroundProperties: false,
-          insertNewLineAroundOthers: false,
-          preserveNewLinesBetweenPropertyValues: true,
-          insertSpaceBeforeComment: true,
-          insertSpaceAfterComment: true,
-          insertSpaceAfterComma: true,
-          insertSpaceInsideParenthesis: false,
-          insertParenthesisAfterNegation: false,
-          insertParenthesisAroundIfCondition: true,
-          insertNewLineBeforeElse: false,
-          insertLeadingZeroBeforeFraction: true,
-          selectorSeparator: ', ',
-          tabStopChar: '\t',
-          newLineChar: '\n',
-          quoteChar: "'",
-          sortProperties: 'alphabetical',
-          alwaysUseImport: true,
-          alwaysUseNot: false,
-          alwaysUseAtBlock: false,
-          alwaysUseExtends: true,
-          alwaysUseNoneOverZero: false,
-          alwaysUseZeroWithoutUnit: false,
-          reduceMarginAndPaddingValues: false,
-          ignoreFiles: []
-        }
-      }
-    ]
+    'nkzq.sass-variables-helper'
   ),
   andThenSet({
     '[postcss]': fmt,

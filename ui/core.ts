@@ -10,6 +10,8 @@ export const init = pipe(
     cursorStyle: 'line-thin',
     cursorSurroundingLines: 10,
     fontLigatures: true,
+    fontFamily: font,
+    fontSize: 11,
     fontWeight: '500',
     'hover.delay': 150,
     insertSpaces: true,
@@ -38,9 +40,7 @@ export const init = pipe(
     fontSize: 10
   }),
   andThenSet('window', {
-    'list.horizontalScrolling': true,
     titleBarStyle: 'custom',
-    'tree.indent': 8,
     zoomLevel: 3
   }),
   andThenSet('workbench', {

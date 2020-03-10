@@ -14,13 +14,10 @@ export const init = usePackages(
       },
       keymap: [
         {
-          key: 'ctrl+c ctrl+l',
-          command: 'test-explorer.show-log'
+          scope: 'test-explorer'
         },
-        {
-          key: 'ctrl+c t',
-          command: 'test-explorer.run-all'
-        }
+        ['ctrl+c ctrl+l', 'show-log'],
+        ['ctrl+c t', 'run-all']
       ]
     }
   ],

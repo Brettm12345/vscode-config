@@ -1,7 +1,7 @@
 import { usePackage } from '../lib';
 
 export const init = usePackage('streetsidesoftware.code-spell-checker', {
-  scope: 'cspell',
+  scope: 'cSpell',
   config: {
     userWords: [
       'ALGOLIA',

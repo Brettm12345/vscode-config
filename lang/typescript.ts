@@ -62,7 +62,7 @@ export const init = pipe(
         config: {
           alwaysShowStatus: false,
           packageManager: 'yarn',
-          'linkTask.enable': true,
+          'lintTask.enable': true,
           run: 'onSave'
         }
       }
@@ -85,6 +85,7 @@ export const init = pipe(
     [
       'orta.vscode-jest',
       {
+        scope: 'jest',
         config: {
           autoEnable: false
         }
@@ -95,8 +96,10 @@ export const init = pipe(
     'rtbenfield.vscode-jest-test-adapter',
     'asvetliakov.snapshot-tools'
   ),
-  andThenSet('[typescript]', {
-    'editor.defaultFormatter': 'esbenp.prettier-vscode'
+  andThenSet({
+    '[typescript]': {
+      'editor.defaultFormatter': 'esbenp.prettier-vscode'
+    }
   }),
   andThenSet('typescript', {
     'format.enable': false,

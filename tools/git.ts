@@ -9,8 +9,22 @@ export const init = usePackages(
   'vsls-contrib.gistfs',
   'me-dutour-mathieu.vscode-github-actions',
   'davidedmiston.bettergitcommits',
-  'kahole.magit',
   'howardzuo.vscode-gitk',
+  [
+    'kahole.magit',
+    {
+      keymap: [
+        {
+          when: 'editorTextFocus && editorLangId == magit'
+        },
+        ['j', 'cursorDown'],
+        ['k', 'cursorUp'],
+        ['p', 'magit.pushing'],
+        ['x', 'magit.discard-at-point'],
+        ['tab', 'magit.toggle-fold']
+      ]
+    }
+  ],
   [
     'eamodio.gitlens',
     {

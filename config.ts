@@ -31,8 +31,10 @@ export const init = pipe(
     trimTrailingWhitespace: true
   }),
   andThenSet('search', {
-    '**/.history': true,
-    '**/bower_components': true,
-    '**/node_modules': true
+    exclude: {
+      '**/.history': true,
+      '**/bower_components': true,
+      '**/node_modules': true
+    }
   })
 );

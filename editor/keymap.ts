@@ -4,7 +4,7 @@ export const init = keymaps([
   [
     {
       modifier: 'meh',
-      scope: 'editorAction'
+      scope: 'editor.action'
     },
     ['f', 'startFindReplaceAction']
   ],
@@ -37,16 +37,6 @@ export const init = keymaps([
   ],
   [
     {
-      when: 'editorTextFocus && editorLangId == magit'
-    },
-    ['j', 'cursorDown'],
-    ['k', 'cursorUp'],
-    ['p', 'magit.pushing'],
-    ['x', 'magit.discard-at-point'],
-    ['tab', 'magit.toggle-fold']
-  ],
-  [
-    {
       when: 'editorTextFocus && foldingEnabled',
       scope: 'editor'
     },
@@ -61,15 +51,5 @@ export const init = keymaps([
     ['c d', 'explorer.newFolder'],
     ['r', 'renameFile'],
     ['d', 'deleteFile']
-  ],
-  [
-    {
-      scope: 'projectManager',
-      modifier: 'hyper'
-    },
-    ['p', 'listProjects'],
-    ['f', 'addToFavorites'],
-    ['i', 'refreshProjects'],
-    ['a', 'addToWorkspace']
   ]
 ]);

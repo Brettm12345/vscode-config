@@ -1,5 +1,6 @@
 import * as A from 'fp-ts/lib/Array';
 import * as T from 'fp-ts/lib/Task';
+import * as O from 'fp-ts/lib/Option';
 import * as R from 'fp-ts/lib/Record';
 import { pipe } from 'fp-ts/lib/pipeable';
 import { IO } from 'fp-ts/lib/IO';
@@ -8,18 +9,32 @@ import * as UP from 'vscode-use-package';
 import { ExtensionContext } from 'vscode';
 
 import { flattenTasks } from './fp';
+import { handleKeybinding, CommonArgs, Keybinding } from './keyboard';
 
-type Package = [string, UP.UsePackageOptions] | string;
+interface PackageOptions extends Omit<UP.UsePackageOptions, 'keymap'> {
+  keymap?: [CommonArgs, ...Keybinding[]];
+}
+
+type Package = [string, PackageOptions] | string;
 
 type Dictionary = Record<string, any>;
 
 export const initUsePackage = (c: ExtensionContext): IO<void> => () =>
   UP.initUsePackage(c);
 
+const handleOptions = (opt: PackageOptions): UP.UsePackageOptions => ({
+  ...opt,
+  keymap: pipe(
+    O.fromNullable(opt.keymap),
+    O.map(([common, ...keys]) => pipe(keys, A.map(handleKeybinding(common)))),
+    O.toUndefined
+  )
+});
+
 export const usePackage = (
   name: string,
-  options: UP.UsePackageOptions = {}
-): Task<void> => () => UP.usePackage(name, options);
+  options: PackageOptions = {}
+): Task<void> => () => UP.usePackage(name, handleOptions(options));
 
 export const usePackages = (...xs: Package[]): Task<void> =>
   pipe(
@@ -33,7 +48,7 @@ export const useMorePackages = (...xs: Package[]) =>
 export const configsSet = (config: Record<string, Dictionary>): Task<void> =>
   pipe(
     R.toArray(config),
-    A.map(([scope, options]) => () => UP.configSet(scope, options)),
+    A.map(x => () => UP.configSet(...x)),
     flattenTasks
   );
 

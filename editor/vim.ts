@@ -1,5 +1,5 @@
 import { wa, ea, usePackage, w } from '../lib';
-import { map } from 'fp-ts/lib/Array';
+import * as A from 'fp-ts/lib/Array';
 
 interface Command {
   command: string;
@@ -11,25 +11,40 @@ interface KeyBind {
 }
 type KeyBindTuple = [string | string[], string];
 interface KeymapOptions {
-  prefix?: string;
+  prefix: string;
+  global?: boolean;
   scope?: string;
 }
 
 type Keymap = [KeymapOptions, ...KeyBindTuple[]];
 
-const singleton = (a: unknown) => (Array.isArray(a) ? a : [a]);
+const singleton = <A>(a: A | A[]): A[] => (Array.isArray(a) ? a : [a]);
 
-const keymap = ([{ prefix, scope }, ...keys]: Keymap): KeyBind[] =>
+const keymap = ([
+  { prefix, scope, global = false },
+  ...keys
+]: Keymap): KeyBind[] =>
   keys.map(([key, command]) => ({
-    before: prefix ? [prefix].concat(singleton(key)) : singleton(key),
+    before: (() => {
+      const x = prefix ? [prefix].concat(key) : singleton(key);
+      return global ? x : ['<leader>', ...x];
+    })(),
     commands: [{ command: scope ? `${scope}.${command}` : command }]
   }));
 
-const keymaps = map(keymap);
+const keymaps = A.chain(keymap);
 
 const normal = keymaps([
-  [{ prefix: '[' }, ['b', wa('previousEditor')], ['e', 'goToPrevError']],
-  [{ prefix: ']' }, ['b', wa('nextEditor')], ['e', 'goToNextError']],
+  [
+    { prefix: '[', global: true },
+    ['b', wa('previousEditor')],
+    ['e', 'goToPrevError']
+  ],
+  [
+    { prefix: ']', global: true },
+    ['b', wa('nextEditor')],
+    ['e', 'goToNextError']
+  ],
   [
     { prefix: 'o' },
     ['h', ea('showHover')],
@@ -38,11 +53,11 @@ const normal = keymaps([
   ],
   [
     { prefix: 'b' },
-    ['b', 'showAllEditors'],
-    ['d', 'closeActiveEditor'],
-    ['n', 'nextEditor'],
-    ['p', 'previousEditor'],
-    ['s', 'files.newUntitledFile'],
+    ['b', wa('showAllEditors')],
+    ['d', wa('closeActiveEditor')],
+    ['n', wa('nextEditor')],
+    ['p', wa('previousEditor')],
+    ['s', wa('files.newUntitledFile')],
     ['m', 'bookmarks.toggle'],
     ['M', 'bookmarks.toggleLabled']
   ],
@@ -56,7 +71,7 @@ const normal = keymaps([
     { prefix: 'c' },
     ['f', ea('formatDocument')],
     ['i', 'extension.sortImports'],
-    ['x', wa('view.problems')]
+    ['x', w('actions.view.toggleProblems')]
   ],
   [
     { prefix: 'g' },
@@ -73,11 +88,8 @@ const normal = keymaps([
   ],
   [
     { prefix: 'f' },
-
     ['f', 'actions.find'],
     ['p', wa('findInFiles')],
-    ['P', 'betterSearch.search'],
-    ['r', 'references-view.find'],
     ['s', wa('gotoSymbol')],
     ['t', wa('showAllSymbols')]
   ],
@@ -87,6 +99,8 @@ const normal = keymaps([
     ['p', 'listProjects']
   ]
 ]);
+
+console.log(normal);
 
 export const init = usePackage('vscodevim.vim', {
   config: {
