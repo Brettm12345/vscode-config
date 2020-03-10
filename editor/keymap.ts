@@ -9,10 +9,27 @@ export const init = keymaps([
     ['f', 'startFindReplaceAction']
   ],
   [
+    { when: 'breadcrumbsActive && breadcrumbsVisible', scope: 'breadcrumbs' },
+    ['l', 'focusNext'],
+    ['h', 'focusPrevious'],
+    ['j', 'selectFocused']
+  ],
+  [
+    {
+      modifier: 'ctrl',
+      when:
+        'inSearchEditor && inputBoxFocus || inputBoxFocus && searchViewletVisible',
+      scope: 'search.focus'
+    },
+    ['j', 'nextInputBox'],
+    ['k', 'previousInputBox']
+  ],
+  [
     { modifier: 'meh', scope: 'workbench.action' },
     ['t', 'showAllSymbols'],
     ['s', 'gotoSymbol']
   ],
+  [{ modifier: 'meh', scope: 'extension' }, ['c', 'colorReplace']],
   [
     {
       modifier: 'hyper',

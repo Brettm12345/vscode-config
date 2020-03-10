@@ -2,42 +2,42 @@ import { pipe } from 'fp-ts/lib/pipeable';
 
 import { usePackages, andThenSet } from '../lib';
 
-const stylusSupremacy = [
-  'thisismanta.stylus-supremacy',
-  {
-    scope: 'stylusSupremacy',
-    config: {
-      insertColons: false,
-      insertSemicolons: false,
-      insertBraces: false,
-      insertNewLineAroundImports: true,
-      insertNewLineAroundBlocks: true,
-      insertNewLineAroundProperties: false,
-      insertNewLineAroundOthers: false,
-      preserveNewLinesBetweenPropertyValues: true,
-      insertSpaceBeforeComment: true,
-      insertSpaceAfterComment: true,
-      insertSpaceAfterComma: true,
-      insertSpaceInsideParenthesis: false,
-      insertParenthesisAfterNegation: false,
-      insertParenthesisAroundIfCondition: true,
-      insertNewLineBeforeElse: false,
-      insertLeadingZeroBeforeFraction: true,
-      selectorSeparator: ', ',
-      newLineChar: '\n',
-      quoteChar: "'",
-      sortProperties: 'alphabetical',
-      alwaysUseImport: true,
-      alwaysUseNot: false,
-      alwaysUseAtBlock: false,
-      alwaysUseExtends: true,
-      alwaysUseNoneOverZero: false,
-      alwaysUseZeroWithoutUnit: false,
-      reduceMarginAndPaddingValues: false,
-      ignoreFiles: []
-    }
-  }
-];
+// const stylusSupremacy = [
+//   'thisismanta.stylus-supremacy',
+//   {
+//     scope: 'stylusSupremacy',
+//     config: {
+//       insertColons: false,
+//       insertSemicolons: false,
+//       insertBraces: false,
+//       insertNewLineAroundImports: true,
+//       insertNewLineAroundBlocks: true,
+//       insertNewLineAroundProperties: false,
+//       insertNewLineAroundOthers: false,
+//       preserveNewLinesBetweenPropertyValues: true,
+//       insertSpaceBeforeComment: true,
+//       insertSpaceAfterComment: true,
+//       insertSpaceAfterComma: true,
+//       insertSpaceInsideParenthesis: false,
+//       insertParenthesisAfterNegation: false,
+//       insertParenthesisAroundIfCondition: true,
+//       insertNewLineBeforeElse: false,
+//       insertLeadingZeroBeforeFraction: true,
+//       selectorSeparator: ', ',
+//       newLineChar: '\n',
+//       quoteChar: "'",
+//       sortProperties: 'alphabetical',
+//       alwaysUseImport: true,
+//       alwaysUseNot: false,
+//       alwaysUseAtBlock: false,
+//       alwaysUseExtends: true,
+//       alwaysUseNoneOverZero: false,
+//       alwaysUseZeroWithoutUnit: false,
+//       reduceMarginAndPaddingValues: false,
+//       ignoreFiles: []
+//     }
+//   }
+// ];
 
 const fmt = {
   'editor.defaultFormatter': 'esbenp.prettier-vscode'

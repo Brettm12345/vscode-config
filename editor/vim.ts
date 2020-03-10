@@ -1,6 +1,6 @@
 import * as A from 'fp-ts/lib/Array';
 
-import { ea, usePackage, w, wa } from '../lib';
+import { ea, usePackage, w, wa, e } from '../lib';
 
 interface Command {
   command: string;
@@ -61,13 +61,14 @@ const normal = keymaps([
   ],
   [
     { prefix: 'o' },
+    ['c', ea('showContextMenu')],
     ['d', w('debug.startView.focus')],
     ['e', 'extensions.listview.focus'],
     ['D', 'dockerContainers.focus'],
     ['h', ea('showHover')],
     ['H', w('view.extension.localHistory')],
     ['p', w('view.explorer')],
-    ['r', w('panel.repl.view.focus')],
+    ['r', w('debug.action.toggleRepl')],
     ['t', wa('terminal.toggleTerminal')],
     ['T', wa('quickOpenTerm')]
   ],
@@ -113,6 +114,8 @@ const normal = keymaps([
   [
     { prefix: 'g' },
     ['g', 'magit.status'],
+    ['c', 'gitlens.showCommitSearch'],
+    ['h', 'gitlens.showQuickFileHistory'],
     ['p', 'git.push'],
     ['P', 'git.pushTo'],
     ['b', 'git.checkout'],
@@ -172,13 +175,22 @@ const normal = keymaps([
   ],
   [
     { prefix: 't' },
+    ['b', 'gitlens.toggleFileBlame'],
+    ['B', 'gitlens.toggleCodeLens'],
     ['r', 'extension.colorHighlight'],
     ['e', 'errorLens.toggle'],
     ['b', 'breadcrumbs.toggle'],
+    ['T', ea('toggleTabFocusMode')],
+    ['m', ea('toggleMinimap')],
+    ['w', ea('toggleWordWrap')],
     ['c', 'codemetrics.toggleCodeMetricsDisplayed'],
+    ['C', 'io.orta.jest.coverage.toggle'],
     ['i', 'importCost.toggle'],
-    ['p', 'prettifySymbolsMode.togglePrettySymbols'],
+    ['P', 'prettifySymbolsMode.togglePrettySymbols'],
     ['s', 'cSpell.toggleEnableSpellChecker'],
+    ['p', wa('togglePannel')],
+    ['d', wa('toggleDeveloperTools')],
+    ['D', e('debug.action.toggleBreakpoint')],
     ['z', wa('toggleZenMode')],
     ['S', wa('toggleAutoSave')],
     ['a', wa('toggleActivityBarVisibility')],
