@@ -1,4 +1,5 @@
 import { usePackages, Init } from '../lib';
+import * as A from 'fp-ts/lib/Array';
 import { pipe } from 'fp-ts/lib/pipeable';
 
 export const init: Init = usePackages(
@@ -13,13 +14,13 @@ export const init: Init = usePackages(
     'foxundermoon.shell-format',
     {
       globalConfig: pipe(
-        {
-          'editor.defaultFormatter': 'foxundermoon.shell-format'
-        },
-        fmt => ({
-          '[dotenv]': fmt,
-          '[shellscript]': fmt
-        })
+        ['dotenv', 'shellscript'],
+        A.reduce({}, (acc, key) => ({
+          ...acc,
+          [`[${key}]`]: {
+            'editor.defaultFormatter': 'foxundermoon.shell-format'
+          }
+        }))
       )
     }
   ]

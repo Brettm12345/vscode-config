@@ -1,6 +1,9 @@
 import * as A from 'fp-ts/lib/Array';
+import * as R from 'fp-ts/lib/Record';
 
-import { ea, usePackage, w, wa, e, Init } from '../lib';
+import { ea, usePackage, wa, Init, withPrefix } from '../lib';
+import { pipe } from 'fp-ts/lib/pipeable';
+import { flow } from 'fp-ts/lib/function';
 
 interface Command {
   command: string;
@@ -35,6 +38,17 @@ const keymap = ([
 
 const keymaps: (xs: Keymap[]) => KeyBind[] = A.chain(keymap);
 
+const scope = (x: string, ...xs: KeyBindTuple[]): KeyBindTuple[] =>
+  pipe(
+    xs,
+    A.map(([k, v]) => [k, `${x}.${v}`])
+  );
+
+const scopes: (x: Record<string, KeyBindTuple[]>) => KeyBindTuple[] = flow(
+  R.toArray,
+  A.chain(([x, xs]) => scope(x, ...xs))
+);
+
 const normal: KeyBind[] = keymaps([
   [
     { prefix: '[', global: true },
@@ -48,83 +62,125 @@ const normal: KeyBind[] = keymaps([
   ],
   [
     { prefix: 's' },
-    ['s', 'betterSearch.search'],
-    ['S', 'betterSearch.searchFull'],
-    ['c', 'clairvoyant.sight'],
-    ['C', 'cliarvoyant.sightDocument'],
-    ['t', 'clairvoyant.sightToken'],
-    ['i', wa('gotoSymbol')],
-    ['I', wa('showAllSymbols')],
-    ['d', 'filesExplorer.findInFolder'],
-    ['p', w('view.search')],
-    ['b', 'actions.find']
+    ...scopes({
+      filesExplorer: [['d', 'findInFolder']],
+      'workbench.view': [['p', 'search']],
+      actions: [['b', 'find']],
+      betterSearch: [
+        ['s', 'search'],
+        ['S', 'searchFull']
+      ],
+      clairvoyant: [
+        ['c', 'sight'],
+        ['C', 'sightDocument'],
+        ['t', 'sightToken']
+      ],
+      'workbench.action': [
+        ['i', 'gotoSymbol'],
+        ['I', 'showAllSymbols']
+      ]
+    })
   ],
   [
     { prefix: 'o' },
-    ['c', ea('showContextMenu')],
-    ['d', w('debug.startView.focus')],
     ['e', 'extensions.listview.focus'],
     ['D', 'dockerContainers.focus'],
-    ['h', ea('showHover')],
-    ['H', w('view.extension.localHistory')],
-    ['p', w('view.explorer')],
-    ['r', w('debug.action.toggleRepl')],
-    ['t', wa('terminal.toggleTerminal')],
-    ['T', wa('quickOpenTerm')]
+    ...scopes({
+      workbench: [
+        ['H', 'view.extension.localHistory'],
+        ['p', 'view.explorer'],
+        ['r', 'debug.action.toggleRepl'],
+        ['d', 'debug.startView.focus']
+      ],
+      'editor.action': [
+        ['h', 'showHover'],
+        ['c', 'showContextMenu']
+      ],
+      'workbench.action': [
+        ['t', 'terminal.toggleTerminal'],
+        ['T', 'quickOpenTerm']
+      ]
+    })
   ],
   [
     { prefix: 'b' },
-    ['[', wa('previousEditor')],
-    [']', wa('nextEditor')],
-    ['b', wa('showAllEditorsByMostRecentlyUsed')],
-    ['B', wa('showAllEditors')],
-    ['d', wa('closeActiveEditor')],
-    ['k', wa('closeActiveEditor')],
-    ['K', wa('closeAllEditors')],
-    ['O', wa('closeOtherEditors')],
-    ['N', wa('files.newUntitledFile')],
-    ['s', wa('files.save')],
-    ['S', wa('files.saveAll')],
-    ['x', 'extension.openScratchpad'],
-    ['m', 'bookmarks.toggle'],
-    ['M', 'bookmarks.toggleLabled']
+    ...scopes({
+      extension: [['x', 'openScratchpad']],
+      'workbench.action': [
+        ['[', 'previousEditor'],
+        [']', 'nextEditor'],
+        ['b', 'showAllEditorsByMostRecentlyUsed'],
+        ['B', 'showAllEditors'],
+        ['d', 'closeActiveEditor'],
+        ['k', 'closeActiveEditor'],
+        ['K', 'closeAllEditors'],
+        ['O', 'closeOtherEditors'],
+        ['N', 'files.newUntitledFile'],
+        ['s', 'files.save'],
+        ['S', 'files.saveAll']
+      ],
+      bookmarks: [
+        ['m', 'toggle'],
+        ['M', 'toggleLabled']
+      ]
+    })
   ],
   [
     { prefix: 'h' },
-    ['d', wa('openGlobalKeybindings')],
-    ['f', ea('inspectTMScopes')],
-    ['i', 'perfview.show'],
-    ['p', 'extension.managePackage'],
-    ['r', wa('reloadWindow')],
-    ['t', wa('generateColorTheme')]
+    ...scopes({
+      extension: [['p', 'managePackage']],
+      'editor.action': [['f', 'inspectTMScopes']],
+      perfview: [['i', 'show']],
+      'workbench.action': [
+        ['d', 'openGlobalKeybindings'],
+        ['r', 'reloadWindow'],
+        ['t', 'generateColorTheme']
+      ]
+    })
   ],
   [
     { prefix: 'c' },
-    ['a', ea('codeAction')],
-    ['c', wa('tasks.build')],
-    ['C', 'extension.changeCase.commands'],
-    ['m', 'extension.runMake'],
-    ['M', 'extension.runMakeByTarget'],
-    ['i', ea('organizeImports')],
-    ['f', ea('formatDocument')],
-    ['j', wa('showAllSymbols')],
-    ['r', ea('rename')],
-    ['x', w('actions.view.toggleProblems')]
+    ...scopes({
+      'workbench.actions.view': [['x', 'toggleProblems']],
+      'editor.action': [
+        ['a', 'codeAction'],
+        ['r', 'rename'],
+        ['i', 'organizeImports'],
+        ['f', 'formatDocument']
+      ],
+      'workbench.action': [
+        ['c', 'tasks.build'],
+        ['j', 'showAllSymbols']
+      ],
+      extension: [
+        ['C', 'extension.changeCase.commands'],
+        ['m', 'extension.runMake'],
+        ['M', 'extension.runMakeByTarget']
+      ]
+    })
   ],
   [
     { prefix: 'g' },
-    ['g', 'magit.status'],
-    ['c', 'gitlens.showCommitSearch'],
-    ['h', 'gitlens.showQuickFileHistory'],
-    ['p', 'git.push'],
-    ['P', 'git.pushTo'],
-    ['b', 'git.checkout'],
-    ['f', 'git.fetchAll'],
-    ['c', 'magit.commit'],
-    ['s', 'git.stage'],
-    ['r', 'git.undoCommit'],
     ['u', 'git-unstage'],
-    ['U', 'git.unstageAll']
+    ...scopes({
+      git: [
+        ['p', 'push'],
+        ['P', 'pushTo'],
+        ['b', 'checkout'],
+        ['f', 'fetchAll'],
+        ['U', 'unstageAll'],
+        ['s', 'stage'],
+        ['r', 'undoCommit']
+      ],
+      gitlens: [
+        ['c', 'showCommitSearch'],
+        ['h', 'showQuickFileHistory']
+      ],
+      magit: [
+        ['g', 'status'],
+        ['C', 'commit']
+      ]
+    })
   ],
   [
     { prefix: 'w', scope: 'workbench.action' },
@@ -136,35 +192,51 @@ const normal: KeyBind[] = keymaps([
   ],
   [
     { prefix: 'f' },
-    ['d', wa('files.openFolder')],
-    ['D', wa('files.openFolderInNewWindow')],
-    ['f', wa('files.openFile')],
-    ['F', wa('files.openFileFolderInNewWindow')],
-    ['r', wa('files.revert')],
-    ['y', wa('files.copyPathOfActiveFile')],
-    ['w', wa('files.showOpenedFileInNewWindow')],
-    ['b', wa('openGlobalKeybindingsFile')],
-    ['s', wa('openGlobalSettings')],
-    ['p', 'init-script.openInitScript']
-  ],
-  [
-    { prefix: 'p', scope: 'projectManager' },
-    ['a', 'addToWorkspace'],
-    ['e', 'editProjects'],
-    ['d', 'deleteProject'],
-    ['i', 'refreshProjects'],
-    ['o', 'open'],
-    ['O', 'openInNewWindow'],
-    ['f', 'addToFavorites'],
-    ['p', 'listProjects'],
-    ['r', 'renameProject']
+    ['p', 'init-script.openInitScript'],
+    ...scopes({
+      'workbench.action.files': [
+        ['d', 'openFolder'],
+        ['D', 'openFolderInNewWindow'],
+        ['f', 'openFile'],
+        ['F', 'openFileFolderInNewWindow'],
+        ['r', 'revert'],
+        ['y', 'copyPathOfActiveFile'],
+        ['w', 'showOpenedFileInNewWindow']
+      ],
+      'workbench.action': [
+        ['b', 'openGlobalKeybindingsFile'],
+        ['s', 'openGlobalSettings'],
+        ['d', 'openFolder'],
+        ['D', 'openFolderInNewWindow'],
+        ['f', 'openFile'],
+        ['F', 'openFileFolderInNewWindow'],
+        ['r', 'revert'],
+        ['y', 'copyPathOfActiveFile'],
+        ['w', 'showOpenedFileInNewWindow']
+      ]
+    })
   ],
   [
     { prefix: 'p' },
-    ['s', 'clairvoyant.scanWorkspace'],
-    ['t', wa('tasks.openWorkspaceFileTasks')],
-    ['T', w('view.extension.testExplorer')],
-    ['g', wa('openWorkspaceSettings')]
+    ...scopes({
+      cliarvoyant: [['s', 'scanWorkspace']],
+      'workbench.view.extension': [['T', 'testExplorer']],
+      'workbench.action': [
+        ['t', 'tasks.openWorkspaceFileTasks'],
+        ['g', 'openWorkspaceSettings']
+      ],
+      projectManager: [
+        ['a', 'addToWorkspace'],
+        ['e', 'editProjects'],
+        ['d', 'deleteProject'],
+        ['i', 'refreshProjects'],
+        ['o', 'open'],
+        ['O', 'openInNewWindow'],
+        ['f', 'addToFavorites'],
+        ['p', 'listProjects'],
+        ['r', 'renameProject']
+      ]
+    })
   ],
   [
     { prefix: 'n', scope: 'notification' },
@@ -175,28 +247,36 @@ const normal: KeyBind[] = keymaps([
   ],
   [
     { prefix: 't' },
-    ['b', 'gitlens.toggleFileBlame'],
-    ['B', 'gitlens.toggleCodeLens'],
     ['r', 'extension.colorHighlight'],
     ['e', 'errorLens.toggle'],
     ['b', 'breadcrumbs.toggle'],
-    ['T', ea('toggleTabFocusMode')],
-    ['m', ea('toggleMinimap')],
-    ['w', ea('toggleWordWrap')],
     ['c', 'codemetrics.toggleCodeMetricsDisplayed'],
     ['C', 'io.orta.jest.coverage.toggle'],
     ['i', 'importCost.toggle'],
     ['P', 'prettifySymbolsMode.togglePrettySymbols'],
     ['s', 'cSpell.toggleEnableSpellChecker'],
-    ['p', wa('togglePannel')],
-    ['d', wa('toggleDeveloperTools')],
-    ['D', e('debug.action.toggleBreakpoint')],
-    ['z', wa('toggleZenMode')],
-    ['S', wa('toggleAutoSave')],
-    ['a', wa('toggleActivityBarVisibility')],
-    ['t', wa('toggleTabsVisibility')],
-    ['f', wa('toggleFullScreen')],
-    ['s', wa('toggleSidebarVisibility')]
+    ...scopes({
+      'editor.debug.action': [['D', 'toggleBreakpoint']],
+      gitlens: [
+        ['b', 'toggleFileBlame'],
+        ['B', 'toggleCodeLens']
+      ],
+      'editor.action': [
+        ['T', 'toggleTabFocusMode'],
+        ['m', 'toggleMinimap'],
+        ['w', 'toggleWordWrap']
+      ],
+      'workbench.action': [
+        ['p', 'togglePannel'],
+        ['d', 'toggleDeveloperTools'],
+        ['z', 'toggleZenMode'],
+        ['S', 'toggleAutoSave'],
+        ['a', 'toggleActivityBarVisibility'],
+        ['t', 'toggleTabsVisibility'],
+        ['f', 'toggleFullScreen'],
+        ['s', 'toggleSidebarVisibility']
+      ]
+    })
   ]
 ]);
 
@@ -206,6 +286,31 @@ const visual: KeyBind[] = keymap([
   ['>', 'indentLines']
 ]);
 
+type CursorStyle =
+  | 'block'
+  | 'block-outline'
+  | 'line'
+  | 'line-thin'
+  | 'underline'
+  | 'underline-thin';
+
+type VimMode =
+  | 'normal'
+  | 'insert'
+  | 'visual'
+  | 'visualblock'
+  | 'visualline'
+  | 'replace';
+
+const cursor: Record<VimMode, CursorStyle> = {
+  insert: 'line-thin',
+  normal: 'block',
+  visual: 'block-outline',
+  visualline: 'block-outline',
+  visualblock: 'block-outline',
+  replace: 'underline-thin'
+};
+
 export const init: Init = usePackage('vscodevim.vim', {
   config: {
     'camelCaseMotion.enable': false,
@@ -213,17 +318,17 @@ export const init: Init = usePackage('vscodevim.vim', {
     startofline: true,
     showcmd: true,
     foldfix: true,
-    'cursorStylePerMode.insert': 'line-thin',
-    'cursorStylePerMode.normal': 'block',
-    'cursorStylePerMode.replace': 'underline-thin',
     easymotion: true,
-    easymotionMarkerFontFamily: 'monospace',
-    easymotionMarkerFontWeight: '500',
-    easymotionMarkerFontSize: '12',
-    easymotionMarkerHeight: 18,
-    easymotionMarkerWidthPerChar: 10,
-    easymotionMarkerYOffset: 4,
-    easymotionMarkerBackgroundColor: '#5881ea',
+    ...withPrefix('cursorStylePerMode.', cursor),
+    ...withPrefix('easymotionMarker', {
+      FontFamily: 'monospace',
+      FontWeight: '500',
+      FontSize: '12',
+      Height: 18,
+      WidthPerChar: 10,
+      YOffset: 4,
+      BackgroundColor: '#5881ea'
+    }),
     'highlightedyank.color': '#74a0f133',
     'highlightedyank.enable': true,
     leader: '<space>',

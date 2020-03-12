@@ -13,8 +13,9 @@ export const init: Init = usePackage('alefragnani.project-manager', {
     ['a', 'addToWorkspace']
   ],
   config: {
-    'any.baseFolders': ['/home/brett/src/github.com/brettm12345/'],
-    'git.baseFolders': ['/home/brett/src/github.com'],
+    'git.baseFolders': ['/home/brett/src'],
+    'git.maxDepthRecursion': 3,
+    groupList: true,
     sortList: 'Recent',
     cacheProjectsBetweenSessions: false,
     showProjectNameInStatusBar: true

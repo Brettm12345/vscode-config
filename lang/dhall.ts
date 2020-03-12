@@ -3,5 +3,5 @@ import { pipe } from 'fp-ts/lib/pipeable';
 
 export const init: Init = pipe(
   usePackages('panaeon.dhall-lang', 'panaeon.vscode-dhall-lsp-server'),
-  initWhenFiles('**/*.ps')
+  initWhenFiles('**/*.dhall', '**/*.ps')
 );

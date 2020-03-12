@@ -2,12 +2,14 @@
   "cSpell.enabled": false,
   "clairvoyant.excludeDirectories": ["node_modules", "dist", "ts_compiled"],
   "clairvoyant.excludeExtentions": ["yarn.lock", "settings.bkp.json", "log"],
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/ts_compiled/**": true
+  },
   "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
     "dist": true,
     "ts_compiled": true
   },
@@ -19,19 +21,5 @@
     "yarn.lock": true,
     "settings.bkp.json": true,
     "*.log": true
-  },
-  "workbench.colorCustomizations": {
-    "[Moonlight II]": {
-      "syntax.type": "#ffc777",
-      // "constant": "#ff98a4",
-      "syntax.function": "#82aaff",
-      // "keyword": "#c099ff",
-      // "number": "#ff966c",
-      "syntax.operator": "#86e1fc",
-      // "parameter": "#fca7ea",
-      "syntax.directive": "#4fd6be",
-      "syntax.string": "#c3e88d",
-      "syntax.variable": "#ff98a4"
-    }
   }
 }

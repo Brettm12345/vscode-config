@@ -13,6 +13,13 @@ export const init: Init = usePackages(
   [
     'kahole.magit',
     {
+      globalConfig: {
+        '[magit]': {
+          'editor.lineNumbers': 'off',
+          'editor.lineHeight': 20,
+          'editor.minimap.enabled': false
+        }
+      },
       keymap: [
         {
           when: 'editorTextFocus && editorLangId == magit'

@@ -9,6 +9,7 @@ export const init: Init = usePackages(
         mergeSuites: true,
         addToEditorContextMenu: true,
         showExpandButton: 0,
+        hideWhen: 'noTests',
         showCollapseButton: false,
         sort: 'byLocation'
       }
