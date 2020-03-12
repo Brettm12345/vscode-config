@@ -7,3 +7,4 @@ My vscode configuration. Special thanks to [vscode-use-package](https://github.c
 - [-] Generate types for installed extensions [see](https://github.com/bcherny/json-schema-to-typescript)
 - [x] Setup custom keymaps for packages
 - [x] Conditional loading
+- [ ] Defer packages by priority? (This might work already. Must test)

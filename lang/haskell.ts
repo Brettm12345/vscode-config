@@ -7,5 +7,12 @@ export const init: Init = pipe(
     'alanz.vscode-hie-server',
     'jcanero.hoogle-vscode'
   ),
-  initWhenFiles('**/*.hs')
+  initWhenFiles(
+    '**/*.hs',
+    '*.cabal',
+    'package.yaml',
+    'stack.yaml',
+    'stack.yml',
+    'stack.yml'
+  )
 );
