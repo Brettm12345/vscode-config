@@ -33,9 +33,12 @@
   },
   "devDependencies": {
     "@brettm12345/eslint-config-node": "^1.0.6",
+    "@types/package-json": "^5.0.1",
     "eslint": "^6.8.0",
     "eslint-plugin-prefer-arrow-functions": "^3.0.1",
+    "json-schema-to-typescript": "^8.1.0",
     "prettier": "^1.19.1",
+    "ts-node": "^8.6.2",
     "tsdx": "^0.12.3"
   }
 }

@@ -10,7 +10,7 @@ import { pipe } from 'fp-ts/lib/pipeable';
 import { constFalse, flow, Endomorphism, constant } from 'fp-ts/lib/function';
 import { Task } from 'fp-ts/lib/Task';
 
-import { noInit, Init } from './fp';
+import { noInit, Init } from './packages';
 
 /**
  * Returns true if vscode contains a file in its workspace root

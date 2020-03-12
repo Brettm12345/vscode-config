@@ -1,7 +1,8 @@
-import { usePackage, Init } from '../lib';
-import { toArray as entries } from 'fp-ts/lib/Record';
-import { pipe } from 'fp-ts/lib/pipeable';
 import * as A from 'fp-ts/lib/Array';
+import * as R from 'fp-ts/lib/Record';
+import { pipe } from 'fp-ts/lib/pipeable';
+
+import { usePackage, Init } from '../lib';
 
 export const init: Init = usePackage('coenraads.bracket-pair-colorizer-2', {
   config: {
@@ -23,7 +24,7 @@ export const init: Init = usePackage('coenraads.bracket-pair-colorizer-2', {
         borderColor: '{color}',
         opacity: 0.8
       },
-      entries,
+      R.toArray,
       A.map(([k, v]) => `${k}: ${v}`)
     ),
     showBracketsInGutter: true,

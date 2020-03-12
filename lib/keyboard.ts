@@ -3,7 +3,8 @@ import { Endomorphism, flow, tupled } from 'fp-ts/lib/function';
 import { map } from 'fp-ts/lib/Array';
 import { pipe } from 'fp-ts/lib/pipeable';
 
-import { flattenInit, Init } from './fp';
+import { flattenInit } from './fp';
+import { Init } from './packages';
 import { replaceAll } from './strings';
 
 export const meh = 'ctrl+shift+alt';

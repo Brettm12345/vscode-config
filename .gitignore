@@ -3,3 +3,4 @@
 *.d.ts
 dist
 ts_compiled
+tmp-extensions

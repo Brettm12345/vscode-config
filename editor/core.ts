@@ -53,9 +53,15 @@ export const init: Init = pipe(
         'References',
         'TypeDefinitions'
       ],
-      A.reduce({}, (acc, key) => ({ ...acc, [key]: 'gotoAndPeek' }))
+      A.reduce({}, (acc, key) => ({
+        ...acc,
+        [`multiple${key}`]: 'gotoAndPeek'
+      }))
     )
   ),
+  andThenSet('editor', {
+    tabCompletion: 'onlySnippets'
+  }),
   andThenSet('editor.parameterHints', {
     cycle: true
   })

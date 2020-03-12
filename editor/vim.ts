@@ -311,7 +311,7 @@ const cursor: Record<VimMode, CursorStyle> = {
   replace: 'underline-thin'
 };
 
-export const init: Init = usePackage('vscodevim.vim', {
+export const init: Init = usePackage<'vscodevim.vim'>('vscodevim.vim', {
   config: {
     'camelCaseMotion.enable': false,
     autoindent: true,

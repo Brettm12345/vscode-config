@@ -1,6 +1,7 @@
-import { usePackage, Init } from '../lib';
 import { pipe } from 'fp-ts/lib/pipeable';
 import * as A from 'fp-ts/lib/Array';
+
+import { usePackage, Init } from '../lib';
 
 interface TextMateRule {
   name: string;
