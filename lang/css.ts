@@ -1,6 +1,6 @@
 import { pipe } from 'fp-ts/lib/pipeable';
 
-import { usePackages, andThenSet } from '../lib';
+import { usePackages, andThenSet, Init, whenFiles } from '../lib';
 
 // const stylusSupremacy = [
 //   'thisismanta.stylus-supremacy',
@@ -42,7 +42,7 @@ import { usePackages, andThenSet } from '../lib';
 const fmt = {
   'editor.defaultFormatter': 'esbenp.prettier-vscode'
 };
-export const init = pipe(
+export const init: Init = pipe(
   usePackages(
     'bradlc.vscode-tailwindcss',
     'mrmlnc.vscode-scss',
@@ -62,5 +62,6 @@ export const init = pipe(
   andThenSet({
     '[postcss]': fmt,
     '[scss]': fmt
-  })
+  }),
+  whenFiles('**/*.css')
 );

@@ -1,11 +1,14 @@
 import * as T from 'fp-ts/lib/Task';
 import { Task, task } from 'fp-ts/lib/Task';
 import { array } from 'fp-ts/lib/Array';
-import { flow, unsafeCoerce } from 'fp-ts/lib/function';
+import { flow, unsafeCoerce, constVoid } from 'fp-ts/lib/function';
 
-const runAll: (a: void[]) => void = unsafeCoerce;
+export type Init = Task<void>;
+export const noInit: Init = T.fromIO(constVoid);
 
-export const flattenTasks: (a: Task<void>[]) => Task<void> = flow(
+const runAll: (xs: void[]) => void = unsafeCoerce;
+
+export const flattenInit: (xs: Init[]) => Init = flow(
   array.sequence(task),
   T.map(runAll)
 );

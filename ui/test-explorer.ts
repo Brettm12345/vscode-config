@@ -1,6 +1,6 @@
-import { usePackages } from '../lib';
+import { usePackages, Init } from '../lib';
 
-export const init = usePackages(
+export const init: Init = usePackages(
   [
     'hbenl.vscode-test-explorer',
     {

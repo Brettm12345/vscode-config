@@ -1,3 +1,3 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
 
-export const init = usePackage('fabiospampinato.vscode-diff');
+export const init: Init = usePackage('fabiospampinato.vscode-diff');

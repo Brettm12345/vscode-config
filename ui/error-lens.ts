@@ -1,3 +1,3 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
 
-export const init = usePackage('usernamehw.errorlens');
+export const init: Init = usePackage('usernamehw.errorlens');

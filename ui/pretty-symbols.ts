@@ -1,4 +1,4 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
 
 const common = [
   {
@@ -50,7 +50,7 @@ const common = [
   }
 ];
 
-export const init = usePackage('siegebell.prettify-symbols-mode', {
+export const init: Init = usePackage('siegebell.prettify-symbols-mode', {
   scope: 'prettifySymbolsMode',
   config: {
     adjustCursorMovement: true,

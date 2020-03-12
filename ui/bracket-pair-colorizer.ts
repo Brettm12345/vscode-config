@@ -1,6 +1,9 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
+import { toArray as entries } from 'fp-ts/lib/Record';
+import { pipe } from 'fp-ts/lib/pipeable';
+import * as A from 'fp-ts/lib/Array';
 
-export const init = usePackage('coenraads.bracket-pair-colorizer-2', {
+export const init: Init = usePackage('coenraads.bracket-pair-colorizer-2', {
   config: {
     colors: [
       '#82AAFF',
@@ -13,12 +16,16 @@ export const init = usePackage('coenraads.bracket-pair-colorizer-2', {
       '#ffc777',
       '#C3E88D'
     ],
-    scopeLineCSS: [
-      'borderStyle : solid',
-      'borderWidth : 0.5px',
-      'borderColor : {color}',
-      'opacity: 0.8'
-    ],
+    scopeLineCSS: pipe(
+      {
+        borderStyle: 'solid',
+        borderWidth: '0.5px',
+        borderColor: '{color}',
+        opacity: 0.8
+      },
+      entries,
+      A.map(([k, v]) => `${k}: ${v}`)
+    ),
     showBracketsInGutter: true,
     showBracketsInRuler: true,
     showVerticalScopeLine: true

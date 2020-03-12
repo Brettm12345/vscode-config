@@ -1,3 +1,3 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
 
-export const init = usePackage('adamvoss.vscode-languagetool');
+export const init: Init = usePackage('adamvoss.vscode-languagetool');

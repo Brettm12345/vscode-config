@@ -6,7 +6,8 @@ import {
   useMorePackages,
   andThenSet,
   findFiles,
-  hasFile
+  hasFile,
+  Init
 } from '../lib';
 import { constVoid } from 'fp-ts/lib/function';
 
@@ -24,7 +25,7 @@ import { constVoid } from 'fp-ts/lib/function';
 //   }
 // ];
 
-export const init = pipe(
+export const init: Init = pipe(
   findFiles('**/*.js'),
   T.chain(hasFiles =>
     hasFiles || hasFile('package.json')
@@ -33,9 +34,11 @@ export const init = pipe(
             'folke.vscode-monorepo-workspace',
             'salbert.comment-ts',
             'hookyqr.jsdoctagcomplete',
+            'ipatalas.vscode-postfix-ts',
             'bierner.lit-html',
             'unional.vscode-sort-package-json',
             'vaibhavvishal.web-extension',
+            'dannymcgee.ts-grammar-extended',
             'ldd-vs-code.better-package-json',
             'anish.voyager',
             'kisstkondoros.vscode-codemetrics',
@@ -46,6 +49,7 @@ export const init = pipe(
             'ms-vscode.typescript-javascript-grammar',
             'ms-vscode.vscode-typescript-next',
             'visualstudioexptteam.vscodeintellicode',
+            'mariusschulz.yarn-lock-syntax',
             'firefox-devtools.vscode-firefox-debug',
             [
               'mike-co.import-sorter',

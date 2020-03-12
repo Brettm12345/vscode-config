@@ -1,12 +1,10 @@
 import * as A from 'fp-ts/lib/Array';
-import * as T from 'fp-ts/lib/Task';
 import * as R from 'fp-ts/lib/Record';
-import { Task } from 'fp-ts/lib/Task';
 import { pipe } from 'fp-ts/lib/pipeable';
 import { flow } from 'fp-ts/lib/function';
 import { ExtensionContext } from 'vscode';
 
-import { initUsePackage, flattenTasks } from './lib';
+import { initUsePackage, flattenInit, Init } from './lib';
 import * as config from './config';
 import * as editor from './editor';
 import * as checkers from './checkers';
@@ -15,7 +13,7 @@ import * as ui from './ui';
 import * as tools from './tools';
 
 interface Module {
-  init: Task<void>;
+  init: Init;
 }
 
 const groups: Array<Record<string, Module>> = [
@@ -26,9 +24,9 @@ const groups: Array<Record<string, Module>> = [
   checkers
 ];
 
-export const init = (ctx: ExtensionContext) =>
-  flattenTasks([
-    pipe(ctx, initUsePackage, T.fromIO),
+export const init = (ctx: ExtensionContext): Promise<void> =>
+  flattenInit([
+    initUsePackage(ctx),
     config.init,
     ...pipe(
       groups,

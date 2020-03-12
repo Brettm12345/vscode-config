@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { hasFile, findFiles } from '../lib';
-import * as T from 'fp-ts/lib/Task';
+import * as c from './c';
 import * as css from './css';
 import * as dhall from './dhall';
 import * as fsharp from './fsharp';
@@ -14,29 +13,20 @@ import * as nix from './nix';
 import * as rust from './rust';
 import * as shell from './shell';
 import * as typescript from './typescript';
-import { constVoid } from 'fp-ts/lib/function';
-
-const empty = {
-  init: T.fromIO(constVoid)
-};
-
-const ps =
-  hasFile('spago.dhall') || hasFile('psc-package.json') ? purescript : empty;
-const rs = hasFile('Cargo.toml') ? rust : empty;
 
 export {
-  // c,
+  c,
   css,
   dhall,
-  // fsharp,
-  // docker,
+  fsharp,
+  docker,
   markdown,
   haskell,
   org,
-  // go,
-  ps,
+  go,
+  purescript,
   nix,
-  rs,
+  rust,
   shell,
   typescript
 };

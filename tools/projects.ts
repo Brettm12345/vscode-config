@@ -1,6 +1,6 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
 
-export const init = usePackage('alefragnani.project-manager', {
+export const init: Init = usePackage('alefragnani.project-manager', {
   scope: 'projectManager',
   keymap: [
     {

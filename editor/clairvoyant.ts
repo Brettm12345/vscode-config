@@ -1,6 +1,6 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
 
-export const init = usePackage('wraith13.clairvoyant', {
+export const init: Init = usePackage('wraith13.clairvoyant', {
   config: {
     autoScanMode: 'workspace',
     excludeDirectories: [

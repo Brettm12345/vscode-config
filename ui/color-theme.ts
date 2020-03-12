@@ -1,6 +1,6 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
 
-export const init = usePackage('atomiks.moonlight', {
+export const init: Init = usePackage('atomiks.moonlight', {
   scope: 'workbench',
   config: {
     colorTheme: 'Moonlight II',

@@ -1,6 +1,6 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
 
-export const init = usePackage('hitode909.zentabs', {
+export const init: Init = usePackage('hitode909.zentabs', {
   config: {
     maximumOpenedTabs: 20,
     switchWithCurrentTab: true

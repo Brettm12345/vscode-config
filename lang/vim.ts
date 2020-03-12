@@ -1,3 +1,3 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
 
-export const init = usePackage('xadillax.viml');
+export const init: Init = usePackage('xadillax.viml', { ifFiles: '**/*.vim' });

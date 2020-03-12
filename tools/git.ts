@@ -1,6 +1,6 @@
-import { usePackages } from '../lib';
+import { usePackages, Init } from '../lib';
 
-export const init = usePackages(
+export const init: Init = usePackages(
   'knisterpeter.vscode-github',
   'github.vscode-pull-request-github',
   'fabiospampinato.vscode-open-in-github',

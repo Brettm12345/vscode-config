@@ -1,7 +1,7 @@
-import { configSet, andThenSet } from './lib';
+import { configSet, andThenSet, Init } from './lib';
 import { pipe } from 'fp-ts/lib/pipeable';
 
-export const init = pipe(
+export const init: Init = pipe(
   configSet('editor', {
     accessibilitySupport: 'off',
     autoClosingQuotes: 'always',

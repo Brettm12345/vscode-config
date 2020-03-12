@@ -1,6 +1,6 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
 
-export const init = usePackage('streetsidesoftware.code-spell-checker', {
+export const init: Init = usePackage('streetsidesoftware.code-spell-checker', {
   scope: 'cSpell',
   config: {
     userWords: [

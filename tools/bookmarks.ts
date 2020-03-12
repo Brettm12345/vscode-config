@@ -1,5 +1,5 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
 
-export const init = usePackage('alefragnani.bookmarks', {
+export const init: Init = usePackage('alefragnani.bookmarks', {
   keymap: [{ modifier: 'hyper', scope: 'bookmarks' }, ['b', 'toggle']]
 });

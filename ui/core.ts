@@ -1,9 +1,9 @@
 import { pipe } from 'fp-ts/lib/pipeable';
 
-import { configSet, andThenSet, useMorePackages } from '../lib';
+import { configSet, andThenSet, useMorePackages, Init } from '../lib';
 
 const font = 'monospace';
-export const init = pipe(
+export const init: Init = pipe(
   configSet('editor', {
     cursorBlinking: 'smooth',
     cursorSmoothCaretAnimation: false,

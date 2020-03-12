@@ -1,6 +1,6 @@
-import { usePackage, configSet } from '../lib';
+import { usePackage, configSet, Init } from '../lib';
 
-export const init = usePackage('pkief.material-icon-theme', {
+export const init: Init = usePackage('pkief.material-icon-theme', {
   config: {
     activeIconPack: 'react',
     'folders.color': '#7c85b3',

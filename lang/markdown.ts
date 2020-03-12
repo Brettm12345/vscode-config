@@ -1,7 +1,11 @@
-import { usePackages } from '../lib';
+import { usePackages, Init, whenFiles } from '../lib';
+import { pipe } from 'fp-ts/lib/pipeable';
 
-export const init = usePackages(
-  'davidanson.vscode-markdownlint',
-  'sycl.markdown-command-runner',
-  'yzhang.markdown-all-in-one'
+export const init: Init = pipe(
+  usePackages(
+    'davidanson.vscode-markdownlint',
+    'sycl.markdown-command-runner',
+    'yzhang.markdown-all-in-one'
+  ),
+  whenFiles('**/*.md')
 );

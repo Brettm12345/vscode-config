@@ -3,24 +3,25 @@ import * as T from 'fp-ts/lib/Task';
 import * as O from 'fp-ts/lib/Option';
 import * as R from 'fp-ts/lib/Record';
 import { pipe } from 'fp-ts/lib/pipeable';
-import { IO } from 'fp-ts/lib/IO';
-import { Task } from 'fp-ts/lib/Task';
 import * as UP from 'vscode-use-package';
-import { ExtensionContext } from 'vscode';
+import { ExtensionContext, GlobPattern } from 'vscode';
 
-import { flattenTasks } from './fp';
+import { noInit, flattenInit, Init } from './fp';
 import { handleKeybinding, CommonArgs, Keybinding } from './keyboard';
+import { Endomorphism } from 'fp-ts/lib/function';
+import { findFiles } from './vscode';
 
 interface PackageOptions extends Omit<UP.UsePackageOptions, 'keymap'> {
   keymap?: [CommonArgs, ...Keybinding[]];
+  ifFiles?: GlobPattern;
 }
 
 type Package = [string, PackageOptions] | string;
 
 type Dictionary = Record<string, any>;
 
-export const initUsePackage = (c: ExtensionContext): IO<void> => () =>
-  UP.initUsePackage(c);
+export const initUsePackage = (c: ExtensionContext): Init =>
+  T.fromIO(() => UP.initUsePackage(c));
 
 const handleOptions = (opt: PackageOptions): UP.UsePackageOptions => ({
   ...opt,
@@ -33,29 +34,37 @@ const handleOptions = (opt: PackageOptions): UP.UsePackageOptions => ({
 
 export const usePackage = (
   name: string,
-  options: PackageOptions = {}
-): Task<void> => () => UP.usePackage(name, handleOptions(options));
+  { ifFiles, ...options }: PackageOptions = {}
+): Init =>
+  pipe(
+    ifFiles ? findFiles(ifFiles) : T.of(true),
+    T.chain(hasFiles =>
+      hasFiles ? () => UP.usePackage(name, handleOptions(options)) : noInit
+    )
+  );
 
-export const usePackages = (...xs: Package[]): Task<void> =>
+export const usePackages = (...xs: Package[]): Init =>
   pipe(
     xs,
     A.map(x => (Array.isArray(x) ? usePackage(...x) : usePackage(x))),
-    flattenTasks
+    flattenInit
   );
-export const useMorePackages = (...xs: Package[]) =>
+export const useMorePackages = (...xs: Package[]): Endomorphism<Init> =>
   T.chain(() => usePackages(...xs));
 
-export const configsSet = (config: Record<string, Dictionary>): Task<void> =>
+export const configsSet = (config: Record<string, Dictionary>): Init =>
   pipe(
     R.toArray(config),
     A.map(x => () => UP.configSet(...x)),
-    flattenTasks
+    flattenInit
   );
 
 export const configSet = (
   scope: string | Dictionary,
   options?: Dictionary
-): Task<void> => () => UP.configSet(scope, options);
+): Init => () => UP.configSet(scope, options);
 
-export const andThenSet = (scope: string | Dictionary, options?: Dictionary) =>
-  T.chain(() => configSet(scope, options));
+export const andThenSet = (
+  scope: string | Dictionary,
+  options?: Dictionary
+): Endomorphism<Init> => T.chain(() => configSet(scope, options));

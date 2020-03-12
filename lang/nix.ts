@@ -1,10 +1,10 @@
-import { usePackages, findFiles } from '../lib';
+import { usePackages, findFiles, Init } from '../lib';
 import { pipe } from 'fp-ts/lib/pipeable';
 import * as T from 'fp-ts/lib/Task';
 import * as B from 'fp-ts/lib/boolean';
 import { constVoid } from 'fp-ts/lib/function';
 
-export const init = pipe(
+export const init: Init = pipe(
   findFiles('**/*.nix'),
   T.chain(
     B.fold(

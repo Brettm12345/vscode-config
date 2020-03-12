@@ -1,6 +1,6 @@
-import { usePackage } from '../lib';
+import { usePackage, Init } from '../lib';
 
-export const init = usePackage('nwolverson.ide-purescript', {
+export const init: Init = usePackage('nwolverson.ide-purescript', {
   config: {
     addSpagoSources: true,
     editorMode: true,
@@ -8,5 +8,6 @@ export const init = usePackage('nwolverson.ide-purescript', {
     polling: true,
     addNpmPath: true,
     pscIdeServerExe: 'purs ide server'
-  }
+  },
+  ifFiles: '**/*.ps'
 });
