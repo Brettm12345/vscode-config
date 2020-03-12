@@ -1,4 +1,6 @@
-import * as grammar from './grammar';
-import * as spell from './spell';
+import { handleModules, Init } from '../lib';
 
-export { grammar, spell };
+export const init: Init = handleModules([
+  import('./grammar'),
+  import('./spell')
+]);

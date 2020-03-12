@@ -1,19 +1,12 @@
-import * as bracketPairColorizer from './bracket-pair-colorizer';
-import * as errorLens from './error-lens';
-import * as core from './core';
-import * as iconTheme from './icon-theme';
-import * as colorTheme from './color-theme';
-import * as prettySymbols from './pretty-symbols';
-import * as testExplorer from './test-explorer';
-import * as zentabs from './zentabs';
+import { Init, handleModules } from '../lib';
 
-export {
-  bracketPairColorizer,
-  core,
-  errorLens,
-  iconTheme,
-  colorTheme,
-  prettySymbols,
-  testExplorer,
-  zentabs
-};
+export const init: Init = handleModules([
+  import('./bracket-pair-colorizer'),
+  import('./error-lens'),
+  import('./core'),
+  import('./icon-theme'),
+  import('./color-theme'),
+  import('./pretty-symbols'),
+  import('./test-explorer'),
+  import('./zentabs')
+]);

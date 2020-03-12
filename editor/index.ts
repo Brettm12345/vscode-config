@@ -1,8 +1,10 @@
-import * as core from './core';
-import * as clairvoyant from './clairvoyant';
-import * as history from './history';
-import * as keymap from './keymap';
-import * as terminal from './terminal';
-import * as vim from './vim';
+import { handleModules, Init } from '../lib';
 
-export { core, clairvoyant, history, keymap, terminal, vim };
+export const init: Init = handleModules([
+  import('./core'),
+  import('./clairvoyant'),
+  import('./history'),
+  import('./keymap'),
+  import('./terminal'),
+  import('./vim')
+]);
