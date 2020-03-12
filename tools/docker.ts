@@ -1,3 +1,5 @@
-import { usePackages, Init } from '../lib';
+import { usePackage, Init } from '../lib';
 
-export const init: Init = usePackages('ms-azuretools.vscode-docker');
+export const init: Init = usePackage('ms-azuretools.vscode-docker', {
+  whenFiles: ['**/Dockerfile', '**/docker-compose.*']
+});

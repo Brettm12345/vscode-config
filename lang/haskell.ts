@@ -1,4 +1,4 @@
-import { usePackages, Init, whenFiles } from '../lib';
+import { usePackages, Init, initWhenFiles } from '../lib';
 import { pipe } from 'fp-ts/lib/pipeable';
 
 export const init: Init = pipe(
@@ -7,5 +7,5 @@ export const init: Init = pipe(
     'alanz.vscode-hie-server',
     'jcanero.hoogle-vscode'
   ),
-  whenFiles('**/*.hs')
+  initWhenFiles('**/*.hs')
 );

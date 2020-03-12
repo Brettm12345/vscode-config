@@ -1,6 +1,6 @@
 import * as A from 'fp-ts/lib/Array';
 
-import { ea, usePackage, w, wa, e } from '../lib';
+import { ea, usePackage, w, wa, e, Init } from '../lib';
 
 interface Command {
   command: string;
@@ -12,7 +12,7 @@ interface KeyBind {
 }
 type KeyBindTuple = [string | string[], string];
 interface KeymapOptions {
-  prefix: string;
+  prefix?: string;
   global?: boolean;
   scope?: string;
 }
@@ -33,9 +33,9 @@ const keymap = ([
     commands: [{ command: scope ? `${scope}.${command}` : command }]
   }));
 
-const keymaps = A.chain(keymap);
+const keymaps: (xs: Keymap[]) => KeyBind[] = A.chain(keymap);
 
-const normal = keymaps([
+const normal: KeyBind[] = keymaps([
   [
     { prefix: '[', global: true },
     ['b', wa('previousEditor')],
@@ -200,7 +200,13 @@ const normal = keymaps([
   ]
 ]);
 
-export const init = usePackage('vscodevim.vim', {
+const visual: KeyBind[] = keymap([
+  { scope: 'editor.action', global: true },
+  ['<', 'outdentLines'],
+  ['>', 'indentLines']
+]);
+
+export const init: Init = usePackage('vscodevim.vim', {
   config: {
     'camelCaseMotion.enable': false,
     autoindent: true,
@@ -211,8 +217,8 @@ export const init = usePackage('vscodevim.vim', {
     'cursorStylePerMode.normal': 'block',
     'cursorStylePerMode.replace': 'underline-thin',
     easymotion: true,
-    easymotionMarkerFontFamily: 'Operator Mono SSm Lig',
-    easymotionMarkerFontWeight: '400',
+    easymotionMarkerFontFamily: 'monospace',
+    easymotionMarkerFontWeight: '500',
     easymotionMarkerFontSize: '12',
     easymotionMarkerHeight: 18,
     easymotionMarkerWidthPerChar: 10,
@@ -224,16 +230,7 @@ export const init = usePackage('vscodevim.vim', {
     normalModeKeyBindings: normal,
     history: 1000,
     sneak: true,
-    visualModeKeyBindingsNonRecursive: [
-      {
-        before: ['>'],
-        commands: ['editor.action.indentLines']
-      },
-      {
-        before: ['<'],
-        commands: ['editor.action.outdentLines']
-      }
-    ],
+    visualModeKeyBindingsNonRecursive: visual,
     sneakUseIgnorecaseAndSmartcase: true,
     gdefault: true,
     useSystemClipboard: true

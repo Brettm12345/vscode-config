@@ -1,4 +1,4 @@
-import { usePackages, Init, whenFiles } from '../lib';
+import { usePackages, Init, initWhenFiles } from '../lib';
 import { pipe } from 'fp-ts/lib/pipeable';
 
 export const init: Init = pipe(
@@ -8,5 +8,5 @@ export const init: Init = pipe(
     'patcx.vscode-nuget-gallery',
     'formulahendry.dotnet-test-explorer'
   ),
-  whenFiles('**/*.fs')
+  initWhenFiles('**/*.fs')
 );

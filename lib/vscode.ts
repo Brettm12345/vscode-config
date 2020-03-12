@@ -7,8 +7,9 @@ import * as NEA from 'fp-ts/lib/NonEmptyArray';
 import * as O from 'fp-ts/lib/Option';
 import * as A from 'fp-ts/lib/Array';
 import { pipe } from 'fp-ts/lib/pipeable';
-import { constFalse, flow, Endomorphism } from 'fp-ts/lib/function';
+import { constFalse, flow, Endomorphism, constant } from 'fp-ts/lib/function';
 import { Task } from 'fp-ts/lib/Task';
+
 import { noInit, Init } from './fp';
 
 /**
@@ -44,15 +45,27 @@ export const findFiles = (
 ): Task<boolean> =>
   pipe(() => findFilesAync(...args), T.map(flow(NEA.fromArray, O.isSome)));
 
-export const whenFiles = (files: GlobPattern): Endomorphism<Init> => (
-  f: Init
-): Init =>
+export const hasAny = (files?: GlobPattern[]): Task<boolean> =>
   pipe(
-    findFiles(files),
-    T.chain(
-      B.fold(
-        () => noInit,
-        () => f
+    O.fromNullable(files),
+    O.fold(
+      constant(T.of(true)),
+      flow(
+        A.map(findFiles),
+        A.array.sequence(T.task),
+        T.map(A.reduce(false as boolean, (a, b) => a || b))
       )
     )
   );
+
+export const initWhen = (fa: Task<boolean>): Endomorphism<Init> => f =>
+  T.task.chain(
+    fa,
+    B.fold(
+      () => noInit,
+      () => f
+    )
+  );
+
+export const initWhenFiles = (...xs: GlobPattern[]) =>
+  pipe(xs, hasAny, initWhen);

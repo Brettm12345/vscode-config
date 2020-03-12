@@ -1,6 +1,6 @@
-import { keymaps } from '../lib';
+import { keymaps, Init } from '../lib';
 
-export const init = keymaps([
+export const init: Init = keymaps([
   [
     {
       modifier: 'meh',

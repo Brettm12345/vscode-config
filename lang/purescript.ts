@@ -9,5 +9,5 @@ export const init: Init = usePackage('nwolverson.ide-purescript', {
     addNpmPath: true,
     pscIdeServerExe: 'purs ide server'
   },
-  ifFiles: '**/*.ps'
+  whenFiles: ['**/*.ps', 'spago.dhall', 'psc-package.json']
 });

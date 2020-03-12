@@ -1,12 +1,26 @@
 import { usePackages, Init } from '../lib';
+import { pipe } from 'fp-ts/lib/pipeable';
 
 export const init: Init = usePackages(
   'mads-hartmann.bash-ide-vscode',
-  'foxundermoon.shell-format',
-  'ryu1kn.edit-with-shell',
   'jeff-hykin.better-shellscript-syntax',
+  'ryu1kn.edit-with-shell',
   'rogalmic.bash-debug',
-  'bmalehorn.vscode-fish',
   'timonwong.shellcheck',
-  'hangxingliu.vscode-awk-hint'
+  ['hangxingliu.vscode-awk-hint', { whenFiles: '**/*.awk' }],
+  ['bmalehorn.vscode-fish', { whenFiles: '**/*.fish' }],
+  [
+    'foxundermoon.shell-format',
+    {
+      globalConfig: pipe(
+        {
+          'editor.defaultFormatter': 'foxundermoon.shell-format'
+        },
+        fmt => ({
+          '[dotenv]': fmt,
+          '[shellscript]': fmt
+        })
+      )
+    }
+  ]
 );

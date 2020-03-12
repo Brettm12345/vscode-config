@@ -1,6 +1,6 @@
 import { pipe } from 'fp-ts/lib/pipeable';
 
-import { usePackages, andThenSet, Init, whenFiles } from '../lib';
+import { usePackages, andThenSet, Init, initWhenFiles } from '../lib';
 
 // const stylusSupremacy = [
 //   'thisismanta.stylus-supremacy',
@@ -63,5 +63,5 @@ export const init: Init = pipe(
     '[postcss]': fmt,
     '[scss]': fmt
   }),
-  whenFiles('**/*.css')
+  initWhenFiles('**/*.css')
 );

@@ -1,19 +1,19 @@
 import * as A from 'fp-ts/lib/Array';
-import * as T from 'fp-ts/lib/Task';
+import { Endomorphism, identity } from 'fp-ts/lib/function';
 import * as O from 'fp-ts/lib/Option';
-import * as R from 'fp-ts/lib/Record';
 import { pipe } from 'fp-ts/lib/pipeable';
-import * as UP from 'vscode-use-package';
+import * as R from 'fp-ts/lib/Record';
+import * as T from 'fp-ts/lib/Task';
 import { ExtensionContext, GlobPattern } from 'vscode';
+import * as UP from 'vscode-use-package';
 
-import { noInit, flattenInit, Init } from './fp';
-import { handleKeybinding, CommonArgs, Keybinding } from './keyboard';
-import { Endomorphism } from 'fp-ts/lib/function';
-import { findFiles } from './vscode';
+import { flattenInit, Init } from './fp';
+import { CommonArgs, handleKeybinding, Keybinding } from './keyboard';
+import { initWhenFiles } from './vscode';
 
 interface PackageOptions extends Omit<UP.UsePackageOptions, 'keymap'> {
   keymap?: [CommonArgs, ...Keybinding[]];
-  ifFiles?: GlobPattern;
+  whenFiles?: GlobPattern | GlobPattern[];
 }
 
 type Package = [string, PackageOptions] | string;
@@ -34,13 +34,13 @@ const handleOptions = (opt: PackageOptions): UP.UsePackageOptions => ({
 
 export const usePackage = (
   name: string,
-  { ifFiles, ...options }: PackageOptions = {}
+  { whenFiles, ...options }: PackageOptions = {}
 ): Init =>
   pipe(
-    ifFiles ? findFiles(ifFiles) : T.of(true),
-    T.chain(hasFiles =>
-      hasFiles ? () => UP.usePackage(name, handleOptions(options)) : noInit
-    )
+    () => UP.usePackage(name, handleOptions(options)),
+    whenFiles
+      ? initWhenFiles(...(Array.isArray(whenFiles) ? whenFiles : [whenFiles]))
+      : identity
   );
 
 export const usePackages = (...xs: Package[]): Init =>
