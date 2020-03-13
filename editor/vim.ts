@@ -50,7 +50,10 @@ const scopes: (x: Record<string, KeyBindTuple[]>) => KeyBindTuple[] = flow(
 );
 
 const SortJson: Keymap = [
-  { prefix: 'S', scope: 'sortJSON' },
+  {
+    prefix: 'S',
+    scope: 'sortJSON'
+  },
   ['j', 'sortJSON'],
   ['J', 'sortJSONReverse'],
   ['k', 'sortJSONKeyLength'],
@@ -125,12 +128,6 @@ const normal: KeyBind[] = keymaps([
     ['e', 'extensions.listview.focus'],
     ['D', 'dockerContainers.focus'],
     ...scopes({
-      workbench: [
-        ['H', 'view.extension.localHistory'],
-        ['p', 'view.explorer'],
-        ['r', 'debug.action.toggleRepl'],
-        ['d', 'debug.startView.focus']
-      ],
       'editor.action': [
         ['h', 'showHover'],
         ['c', 'showContextMenu']
@@ -139,6 +136,13 @@ const normal: KeyBind[] = keymaps([
         ['P', 'cm_open_palette'],
         ['C', 'cm_open_picker'],
         ['e', 'cm_open_picker_sel']
+      ],
+      regexworkbench: [['R', 'start']],
+      workbench: [
+        ['H', 'view.extension.localHistory'],
+        ['p', 'view.explorer'],
+        ['r', 'debug.action.toggleRepl'],
+        ['d', 'debug.startView.focus']
       ],
       'workbench.action': [
         ['t', 'terminal.toggleTerminal'],
@@ -149,6 +153,10 @@ const normal: KeyBind[] = keymaps([
   [
     { prefix: 'b' },
     ...scopes({
+      bookmarks: [
+        ['m', 'toggle'],
+        ['M', 'toggleLabled']
+      ],
       extension: [['x', 'openScratchpad']],
       'workbench.action': [
         ['[', 'previousEditor'],
@@ -162,18 +170,14 @@ const normal: KeyBind[] = keymaps([
         ['N', 'files.newUntitledFile'],
         ['s', 'files.save'],
         ['S', 'files.saveAll']
-      ],
-      bookmarks: [
-        ['m', 'toggle'],
-        ['M', 'toggleLabled']
       ]
     })
   ],
   [
     { prefix: 'h' },
     ...scopes({
-      extension: [['p', 'managePackage']],
       'editor.action': [['f', 'inspectTMScopes']],
+      extension: [['p', 'managePackage']],
       perfview: [['i', 'show']],
       'workbench.action': [
         ['d', 'openGlobalKeybindings'],
@@ -324,15 +328,15 @@ const normal: KeyBind[] = keymaps([
     ['P', 'prettifySymbolsMode.togglePrettySymbols'],
     ['s', 'cSpell.toggleEnableSpellChecker'],
     ...scopes({
-      'editor.debug.action': [['D', 'toggleBreakpoint']],
-      gitlens: [
-        ['b', 'toggleFileBlame'],
-        ['B', 'toggleCodeLens']
-      ],
       'editor.action': [
         ['T', 'toggleTabFocusMode'],
         ['m', 'toggleMinimap'],
         ['w', 'toggleWordWrap']
+      ],
+      'editor.debug.action': [['D', 'toggleBreakpoint']],
+      gitlens: [
+        ['b', 'toggleFileBlame'],
+        ['B', 'toggleCodeLens']
       ],
       'workbench.action': [
         ['p', 'togglePannel'],
@@ -403,7 +407,7 @@ export const init: Init = usePackage<'vscodevim.vim'>('vscodevim.vim', {
       FontSize: '12',
       Height: 20,
       WidthPerChar: 20,
-      YOffset: 4,
+      YOffset: 10,
       ForegroundColorOneChar: '#b2dfff',
       ForegroundColorTwoChar: '#82aaff',
       BackgroundColor: '#191a2a'

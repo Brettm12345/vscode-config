@@ -49,7 +49,7 @@ export const init: Init = pipe(
     'color-variable-replace.color-variable-replace',
     'mrmlnc.vscode-doiuse',
     'heybourn.headwind',
-    'alan.stylus',
+    'sysoev.language-stylus',
     'bradlc.vscode-tailwindcss',
     'kisstkondoros.csstriggers',
     'jpoissonnier.vscode-styled-components',
@@ -57,7 +57,8 @@ export const init: Init = pipe(
     'cpylua.language-postcss',
     'kisstkondoros.csstriggers',
     'mrmlnc.vscode-postcss-sorting',
-    'nkzq.sass-variables-helper'
+    'nkzq.sass-variables-helper',
+    'chriskirknielsen.visubezier'
   ),
   andThenSet({
     '[postcss]': fmt,

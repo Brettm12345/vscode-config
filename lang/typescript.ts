@@ -104,7 +104,9 @@ export const init: Init = pipe(
     'tlent.jest-snapshot-language-support',
     'rtbenfield.vscode-jest-test-adapter',
     'asvetliakov.snapshot-tools',
-    'esbenp.prettier-vscode'
+    'esbenp.prettier-vscode',
+    'aleclarson.auto-typings',
+    'juliensanmartin.vscode-depcheck'
   ),
   andThenSet({
     '[typescript]': {
