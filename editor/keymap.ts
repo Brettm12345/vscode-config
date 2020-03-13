@@ -1,6 +1,14 @@
 import { keymaps, Init } from '../lib';
 
 export const init: Init = keymaps([
+  [{ scope: '-workbench.action' }, ['q', '-closeActiveEditor']],
+  [
+    {
+      modifier: 'ctrl',
+      scope: '-workbench.action'
+    },
+    ['e', 'quickOpen']
+  ],
   [
     {
       modifier: 'meh',

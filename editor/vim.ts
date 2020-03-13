@@ -1,9 +1,9 @@
 import * as A from 'fp-ts/lib/Array';
 import * as R from 'fp-ts/lib/Record';
-
-import { ea, usePackage, wa, Init, withPrefix } from '../lib';
 import { pipe } from 'fp-ts/lib/pipeable';
 import { flow } from 'fp-ts/lib/function';
+
+import { ea, usePackage, wa, Init, withPrefix } from '../lib';
 
 interface Command {
   command: string;
@@ -11,7 +11,7 @@ interface Command {
 interface KeyBind {
   after?: string[];
   before: string[];
-  commands: Command[];
+  commands?: Command[] | string[];
 }
 type KeyBindTuple = [string | string[], string];
 interface KeymapOptions {
@@ -33,7 +33,7 @@ const keymap = ([
       const x = prefix ? [prefix].concat(key) : singleton(key);
       return global ? x : ['<leader>', ...x];
     })(),
-    commands: [{ command: scope ? `${scope}.${command}` : command }]
+    commands: [scope ? `${scope}.${command}` : command]
   }));
 
 const keymaps: (xs: Keymap[]) => KeyBind[] = A.chain(keymap);
@@ -49,16 +49,54 @@ const scopes: (x: Record<string, KeyBindTuple[]>) => KeyBindTuple[] = flow(
   A.chain(([x, xs]) => scope(x, ...xs))
 );
 
+const SortJson: Keymap = [
+  { prefix: 'S', scope: 'sortJSON' },
+  ['j', 'sortJSON'],
+  ['J', 'sortJSONReverse'],
+  ['k', 'sortJSONKeyLength'],
+  ['K', 'sortJSONKeyLengthReverse'],
+  ['a', 'sortJSONAlphaNum'],
+  ['A', 'sortJSONAlphaNumReverse'],
+  ['v', 'sortJSONValues'],
+  ['V', 'sortJSONValuesReverse'],
+  ['t', 'sortJSONType'],
+  ['T', 'sortJSONTypeReverse']
+];
 const normal: KeyBind[] = keymaps([
+  [
+    {},
+    ...scopes({
+      'workbench.action': [
+        ['<', 'showAllEditorsByMostRecentlyUsed'],
+        [',', 'previousEditor'],
+        ['*', 'showAllSymbols']
+      ]
+    })
+  ],
   [
     { prefix: '[', global: true },
     ['b', wa('previousEditor')],
-    ['space', ea('insertLineBefore')]
+    ...scopes({
+      'workbench.action': [['b', 'previousEditor']],
+      editorAction: [
+        ['space', 'insertLinesBefore'],
+        ['d', 'dirtydiff.previous'],
+        ['e', 'marker.prev'],
+        ['E', 'marker.prevInFiles']
+      ]
+    })
   ],
   [
     { prefix: ']', global: true },
-    ['b', wa('nextEditor')],
-    ['space', ea('insertLineAfter')]
+    ...scopes({
+      'workbench.action': [['b', 'nextEditor']],
+      'editor.action': [
+        ['space', 'insertLineAfter'],
+        ['d', 'dirtydiff.next'],
+        ['e', 'marker.next'],
+        ['E', 'marker.nextInFiles']
+      ]
+    })
   ],
   [
     { prefix: 's' },
@@ -81,6 +119,7 @@ const normal: KeyBind[] = keymaps([
       ]
     })
   ],
+  SortJson,
   [
     { prefix: 'o' },
     ['e', 'extensions.listview.focus'],
@@ -95,6 +134,11 @@ const normal: KeyBind[] = keymaps([
       'editor.action': [
         ['h', 'showHover'],
         ['c', 'showContextMenu']
+      ],
+      extension: [
+        ['P', 'cm_open_palette'],
+        ['C', 'cm_open_picker'],
+        ['e', 'cm_open_picker_sel']
       ],
       'workbench.action': [
         ['t', 'terminal.toggleTerminal'],
@@ -133,8 +177,10 @@ const normal: KeyBind[] = keymaps([
       perfview: [['i', 'show']],
       'workbench.action': [
         ['d', 'openGlobalKeybindings'],
+        ['s', 'openSnippets'],
         ['r', 'reloadWindow'],
-        ['t', 'generateColorTheme']
+        ['t', 'selectTheme'],
+        ['T', 'generateColorTheme']
       ]
     })
   ],
@@ -143,6 +189,7 @@ const normal: KeyBind[] = keymaps([
     ...scopes({
       'workbench.actions.view': [['x', 'toggleProblems']],
       'editor.action': [
+        ['A', 'AutoFix'],
         ['a', 'codeAction'],
         ['r', 'rename'],
         ['i', 'organizeImports'],
@@ -163,6 +210,7 @@ const normal: KeyBind[] = keymaps([
     { prefix: 'g' },
     ['u', 'git-unstage'],
     ...scopes({
+      'gistpad.showcase': [['G', 'view']],
       git: [
         ['p', 'push'],
         ['P', 'pushTo'],
@@ -186,13 +234,28 @@ const normal: KeyBind[] = keymaps([
     { prefix: 'w', scope: 'workbench.action' },
     ['d', 'closeEditorsInGroup'],
     ['h', 'focusPreviousGroup'],
+    ['H', 'closeEditorsToTheLeft'],
+    ['o', 'closeEditorsInOtherGroups'],
+    ['a', 'closeEditorInAllGroups'],
     ['w', 'quickSwitchWindow'],
     ['u', 'closeUnmodifiedEditors'],
     ['v', 'splitEditor']
   ],
   [
+    { prefix: 'gz', scope: 'editor.action' },
+    ...scopes({
+      'workbench.action': [['t', 'toggleMultiCursorModifier']],
+      'editor.action': [
+        ['K', 'addCursorsToBottom'],
+        ['J', 'addCursorsToTop'],
+        ['k', 'insertCursorAbove'],
+        ['j', 'insertCursorBelow'],
+        ['e', 'insertCursorAtEndOfEachLineSelected']
+      ]
+    })
+  ],
+  [
     { prefix: 'f' },
-    ['p', 'init-script.openInitScript'],
     ...scopes({
       'workbench.action.files': [
         ['d', 'openFolder'],
@@ -206,6 +269,10 @@ const normal: KeyBind[] = keymaps([
       'workbench.action': [
         ['b', 'openGlobalKeybindingsFile'],
         ['s', 'openGlobalSettings'],
+        ['p', 'openSettingsJson'],
+        ['P', 'openDefaultSettingsJson'],
+        ['k', 'openGlobalKeybindingsFile'],
+        ['K', 'openDefaultKeybindingsFile'],
         ['d', 'openFolder'],
         ['D', 'openFolderInNewWindow'],
         ['f', 'openFile'],
@@ -232,6 +299,7 @@ const normal: KeyBind[] = keymaps([
         ['i', 'refreshProjects'],
         ['o', 'open'],
         ['O', 'openInNewWindow'],
+        ['D', 'refreshGitProjects'],
         ['f', 'addToFavorites'],
         ['p', 'listProjects'],
         ['r', 'renameProject']
@@ -268,7 +336,7 @@ const normal: KeyBind[] = keymaps([
       ],
       'workbench.action': [
         ['p', 'togglePannel'],
-        ['d', 'toggleDeveloperTools'],
+        ['d', 'toggleDevTools'],
         ['z', 'toggleZenMode'],
         ['S', 'toggleAutoSave'],
         ['a', 'toggleActivityBarVisibility'],
@@ -280,10 +348,13 @@ const normal: KeyBind[] = keymaps([
   ]
 ]);
 
-const visual: KeyBind[] = keymap([
-  { scope: 'editor.action', global: true },
-  ['<', 'outdentLines'],
-  ['>', 'indentLines']
+const visual: KeyBind[] = keymaps([
+  [
+    { scope: 'editor.action', global: true },
+    ['<', 'outdentLines'],
+    ['>', 'indentLines']
+  ],
+  SortJson
 ]);
 
 type CursorStyle =
@@ -318,26 +389,39 @@ export const init: Init = usePackage<'vscodevim.vim'>('vscodevim.vim', {
     startofline: true,
     showcmd: true,
     foldfix: true,
+    enableNeovim: true,
+    experimentalOptimizations: true,
+
+    handleKeys: {
+      '<C-e>': false
+    },
     easymotion: true,
     ...withPrefix('cursorStylePerMode.', cursor),
     ...withPrefix('easymotionMarker', {
       FontFamily: 'monospace',
       FontWeight: '500',
       FontSize: '12',
-      Height: 18,
-      WidthPerChar: 10,
+      Height: 20,
+      WidthPerChar: 20,
       YOffset: 4,
-      BackgroundColor: '#5881ea'
+      ForegroundColorOneChar: '#b2dfff',
+      ForegroundColorTwoChar: '#82aaff',
+      BackgroundColor: '#191a2a'
     }),
-    'highlightedyank.color': '#74a0f133',
+    'highlightedyank.color': '#86e1fccc',
     'highlightedyank.enable': true,
     leader: '<space>',
     normalModeKeyBindings: normal,
-    history: 1000,
+    neovimPath: '/home/brett/.nix-profile/bin/nvim',
+    overrideCopy: true,
+    history: 10000,
+    replaceWithRegister: true,
     sneak: true,
+    smartcase: true,
     visualModeKeyBindingsNonRecursive: visual,
     sneakUseIgnorecaseAndSmartcase: true,
     gdefault: true,
+    visualstar: true,
     useSystemClipboard: true
   }
 });

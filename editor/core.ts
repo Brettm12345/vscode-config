@@ -62,6 +62,9 @@ export const init: Init = pipe(
   andThenSet('editor', {
     tabCompletion: 'onlySnippets'
   }),
+  andThenSet('editor.suggest', {
+    filterGraceful: true
+  }),
   andThenSet('editor.parameterHints', {
     cycle: true
   })

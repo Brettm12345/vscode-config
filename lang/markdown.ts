@@ -1,4 +1,4 @@
-import { usePackages, Init, initWhenFiles } from '../lib';
+import { usePackages, Init, initWhenFiles, andThenSet } from '../lib';
 import { pipe } from 'fp-ts/lib/pipeable';
 
 export const init: Init = pipe(
@@ -7,5 +7,9 @@ export const init: Init = pipe(
     'sycl.markdown-command-runner',
     'yzhang.markdown-all-in-one'
   ),
+  andThenSet('markdown.preview', {
+    linkify: true,
+    fontFamily: 'Inter'
+  }),
   initWhenFiles('**/*.md')
 );

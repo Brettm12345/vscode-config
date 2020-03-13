@@ -23,5 +23,6 @@
     "settings.bkp.json": true,
     "*.log": true,
     "**/tmp-extensions/**": true
-  }
+  },
+  "eslint.enable": false
 }

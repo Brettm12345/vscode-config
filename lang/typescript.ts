@@ -111,6 +111,9 @@ export const init: Init = pipe(
       'editor.defaultFormatter': 'esbenp.prettier-vscode'
     }
   }),
+  andThenSet('npm', {
+    packageManager: 'yarn'
+  }),
   andThenSet('typescript', {
     'format.enable': false,
     'format.insertSpaceAfterFunctionKeywordForAnonymousFunctions': false,

@@ -47,7 +47,7 @@ const handleOptions = <Config extends Dictionary>(
 });
 
 export const usePackage = <A extends keyof Extensions | string>(
-  name: string,
+  name: A,
   {
     whenFiles,
     ...options

@@ -67,5 +67,5 @@ export const initWhen = (fa: Task<boolean>): Endomorphism<Init> => f =>
     )
   );
 
-export const initWhenFiles = (...xs: GlobPattern[]) =>
+export const initWhenFiles = (...xs: GlobPattern[]): Endomorphism<Init> =>
   pipe(xs, hasAny, initWhen);

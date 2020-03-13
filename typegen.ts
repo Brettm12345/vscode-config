@@ -32,7 +32,6 @@ const main = async () => {
             TE.map((typegen: string) => {
               const name = dir.replace(/-[^-]+$/, '');
               const path = P.join(__dirname, '@types', name);
-              console.log(typegen);
               console.log('Generating types:', path);
               FS.mkdirSync(path, { recursive: true });
               FS.writeFileSync(P.join(path, 'index.d.ts'), typegen);
