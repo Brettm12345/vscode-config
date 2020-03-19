@@ -8,7 +8,7 @@ export const init: Init = handleModules([
   import('./git'),
   import('./docker'),
   import('./projects'),
-  import('./regex'),
+  // import('./regex'),
   // import('./sync'),
   import('./todo')
 ]);
