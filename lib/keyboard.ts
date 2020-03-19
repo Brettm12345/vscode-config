@@ -18,7 +18,7 @@ export const handleKey: Endomorphism<string> = replaceAll(
 /**
  * [Key, Command]
  */
-export type Keybinding = [string, string];
+export type Keybinding = [string, string]
 
 export interface CommonArgs extends Omit<up.Keybinding, 'key' | 'command'> {
   scope?: string;
