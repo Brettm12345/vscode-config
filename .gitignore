@@ -1,5 +1,6 @@
 *.js
 *.js.map
+.history
 *.d.ts
 dist
 ts_compiled
