@@ -292,10 +292,14 @@ const normal: KeyBind[] = keymaps([
     ...scopes({
       cliarvoyant: [['s', 'scanWorkspace']],
       'workbench.view.extension': [['T', 'testExplorer']],
-      'workbench.action': [
-        ['t', 'tasks.openWorkspaceFileTasks'],
-        ['g', 'openWorkspaceSettings']
+      'workbench.action.tasks': [
+        ['c', 'build'],
+        ['C', 'configureDefaultBuildTask'],
+        ['l', 'showLog'],
+        ['T', 'test'],
+        ['t', 'showTasks']
       ],
+      'workbench.action': [['g', 'openWorkspaceSettings']],
       projectManager: [
         ['a', 'addToWorkspace'],
         ['e', 'editProjects'],
