@@ -43,21 +43,22 @@ const colorInfoLanguages: [string, ColorInfoColors][] = [
   ['json', 'css'],
   ['yaml', 'css'],
   ['typescript', 'css'],
-  ['javascript', 'css']
+  ['javascript', 'css'],
 ];
 const colorInfoConfig: ColorInfoConfig = {
   languages: pipe(
     colorInfoLanguages,
     A.map(([selector, colors]) => ({ selector, colors }))
-  )
+  ),
 };
 
 export const init: Init = usePackages(
   [
     'bierner.color-info',
     {
-      config: colorInfoConfig
-    }
+      config: colorInfoConfig,
+      scope: 'colorInfo',
+    },
   ],
   [
     'royaction.color-manager',
@@ -73,10 +74,10 @@ export const init: Init = usePackages(
           'sass',
           'postcss',
           'yaml',
-          'stylus'
-        ]
-      }
-    }
+          'stylus',
+        ],
+      },
+    },
   ],
   'naumovs.color-highlight'
 );

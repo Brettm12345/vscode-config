@@ -30,26 +30,26 @@ export const init: Init = pipe(
     smoothScrolling: true,
     suggestFontSize: 12,
     suggestLineHeight: 22,
-    suggestSelection: 'first'
+    suggestSelection: 'first',
   }),
   andThenSet('terminal.integrated', {
     cursorStyle: 'line',
     drawBoldTextInBrightColors: false,
-    experimentalRefreshOnResume: true,
     fontFamily: font,
-    fontSize: 10
+    fontSize: 10,
+    rendererType: 'experimentalWebgl',
   }),
   andThenSet('window', {
     menuBarVisibility: 'compact',
     titleBarStyle: 'native',
-    zoomLevel: 3
+    zoomLevel: 3,
   }),
   andThenSet('workbench', {
     'editor.showTabs': true,
     'list.automaticKeyboardNavigation': true,
     'list.horizontalScrolling': true,
     'sideBar.location': 'right',
-    'tree.indent': 8
+    'tree.indent': 8,
   }),
   useMorePackages(
     'kruemelkatze.vscode-dashboard',

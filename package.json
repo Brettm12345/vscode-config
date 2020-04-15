@@ -1,12 +1,7 @@
 {
   "eslintConfig": {
     "extends": "@brettm12345/eslint-config-node",
-    "ignorePatterns": [
-      "dist",
-      ".log",
-      "ts_compiled",
-      "*.d.ts"
-    ],
+    "ignorePatterns": ["dist", ".log", "ts_compiled", "*.d.ts"],
     "rules": {
       "unicorn/filename-case": [
         1,
@@ -17,7 +12,7 @@
     }
   },
   "scripts": {
-    "clean": "echo '{ \"init-script.path\": \"~/etc/vscode/init\" }' > ~/.config/Code/User/settings.json && rm -rf ~/.vscode/extensions",
+    "clean": "echo '{ \"init-script.path\": \"~/etc/vscode/init\" }' > ~/.config/Code/User/settings.json && rm -rf ~/.vscode/extensions/* && code --install-extension bodil.init-script",
     "lint": "eslint *.ts ./**/*.ts",
     "build": "tsc"
   },

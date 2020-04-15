@@ -7,7 +7,7 @@ export const init: Init = usePackage('nwolverson.ide-purescript', {
     buildCommand: 'spago build --purs-args --json-errors',
     polling: true,
     addNpmPath: true,
-    pscIdeServerExe: 'purs ide server'
+    pscIdeServerExe: 'purs ide server',
   },
-  whenFiles: ['**/*.ps', 'spago.dhall', 'psc-package.json']
+  whenFiles: ['**/*.ps', 'spago.dhall', 'psc-package.json'],
 });

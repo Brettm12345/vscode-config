@@ -5,7 +5,7 @@ import {
   useMorePackages,
   andThenSet,
   Init,
-  initWhenFiles
+  initWhenFiles,
 } from '../lib';
 
 // Inline types unfortunately slows down vscode significantly
@@ -28,14 +28,14 @@ export const init: Init = pipe(
     'salbert.comment-ts',
     'hookyqr.jsdoctagcomplete',
     'ipatalas.vscode-postfix-ts',
-    'bierner.lit-html',
+    // 'bierner.lit-html',
     'unional.vscode-sort-package-json',
     'vaibhavvishal.web-extension',
-    'dannymcgee.ts-grammar-extended',
+    // 'dannymcgee.ts-grammar-extended',
     'ldd-vs-code.better-package-json',
-    'anish.voyager',
-    'kisstkondoros.vscode-codemetrics',
-    'thisismanta.package-watch',
+    // 'anish.voyager',
+    // 'kisstkondoros.vscode-codemetrics',
+    // 'thisismanta.package-watch',
     'richie5um2.vscode-sort-json',
     'jpoissonnier.vscode-styled-components',
     'silvenon.mdx',
@@ -57,9 +57,9 @@ export const init: Init = pipe(
           'generalConfiguration.sortOnBeforeSave': false,
           'importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count': 60,
           'importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type':
-            'newLineEachExpressionAfterCountLimitExceptIfOnlyOne'
-        }
-      }
+            'newLineEachExpressionAfterCountLimitExceptIfOnlyOne',
+        },
+      },
     ]
   ),
   // Feature: Linting
@@ -72,9 +72,9 @@ export const init: Init = pipe(
           alwaysShowStatus: false,
           packageManager: 'yarn',
           'lintTask.enable': true,
-          run: 'onSave'
-        }
-      }
+          run: 'onSave',
+        },
+      },
     ],
     [
       'wix.vscode-import-cost',
@@ -84,25 +84,24 @@ export const init: Init = pipe(
           showCalculatingDecoration: true,
           largePackageColor: '#ff5370',
           mediumPackageColor: '#FF966C',
-          smallPackageColor: '#c3e88d'
-        }
-      }
+          smallPackageColor: '#c3e88d',
+        },
+      },
     ]
   ),
   // Feature: Testing
   useMorePackages(
-    [
-      'orta.vscode-jest',
-      {
-        scope: 'jest',
-        config: {
-          autoEnable: false
-        }
-      }
-    ],
-    'develax.daddy-jest',
+    // [
+    //   'orta.vscode-jest',
+    //   {
+    //     scope: 'jest',
+    //     config: {
+    //       autoEnable: false
+    //     }
+    //   }
+    // ],
+    // 'develax.daddy-jest',
     'tlent.jest-snapshot-language-support',
-    'rtbenfield.vscode-jest-test-adapter',
     'asvetliakov.snapshot-tools',
     'esbenp.prettier-vscode',
     'aleclarson.auto-typings'
@@ -110,11 +109,11 @@ export const init: Init = pipe(
   ),
   andThenSet({
     '[typescript]': {
-      'editor.defaultFormatter': 'esbenp.prettier-vscode'
-    }
+      'editor.defaultFormatter': 'esbenp.prettier-vscode',
+    },
   }),
   andThenSet('npm', {
-    packageManager: 'yarn'
+    packageManager: 'yarn',
   }),
   andThenSet('typescript', {
     'format.enable': false,
@@ -126,7 +125,7 @@ export const init: Init = pipe(
     'surveys.enabled': false,
     'tsserver.log': 'normal',
     'tsserver.trace': 'messages',
-    'updateImportsOnFileMove.enabled': 'always'
+    'updateImportsOnFileMove.enabled': 'always',
   }),
   initWhenFiles('**/*.ts', '**/*.js', 'package.json')
 );
